@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model UsuariosModel
+@{
+    ViewData["Title"] = "Acceso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="loginCont">
+    <div class="container">
+        <div class="col-lg-4 col-md-8 col-sm-10 mx-auto">
+            <div class="login-box">
+                <h4 class="text-white text-center" style="padding: .75em 0">Login de la Página</h4>
+                <form asp-controller="Acceso" asp-action="ValidarUser" method="post">
+                    <div class="user-box">
+                        <input type="text" asp-for="usuario" required="" />
+                        <label>Usuario:</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="password" asp-for="clave" required="" />
+                        <label>Contraseña:</label>
+                    </div>
+                    <p style="margin: 0;" align="center"><a class="sinCuenta" asp-controller="Usuarios" asp-action="GuardarPropioUser">¿No tienes cuenta?, click aqui</a></p>
+                    <center>
+                        <button type="submit" id="EnviarB"><strong>Ingresar</strong></button>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

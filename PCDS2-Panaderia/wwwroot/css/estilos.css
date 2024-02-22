@@ -1,0 +1,11 @@
+﻿.navItems {
+    color: white;
+    font-size: 1.2em;
+}
+.navItems:hover {
+    color: rgba(255,255,255,.5);
+}
+.imgLogoNav {
+    width: 60px;
+    margin-right: 1em;
+}

@@ -1,0 +1,48 @@
+﻿@model List<BocaditosModel>
+@{
+    ViewData["Title"] = "Ver_Bocaditos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="contenedor mt-4 mb-4">
+    <div class="contenedor-items">
+        <!-- Contenedor de elementos -->
+        @foreach (var item in Model)
+        {
+            <div class="item" style="background: white">
+                <span class="titulo-item">@item.nombreB</span>
+                <span class="titulo-item d-none">@item.idBocaditos</span>
+                <span class="otros-item">@item.marcaB</span>
+                <img src="@item.imagenB" class="img-item" />
+                <span class="precio-item">S/. @item.costoB</span>
+                <span class="otros-item d-none">Disponible @item.stockB</span>
+                <button class="boton-item">Agregar al carrito</button>
+            </div>
+        }
+    </div>
+    <!-- Carrito de Compras -->
+    <div class="carrito" id="carrito">
+        <div class="header-carrito">
+            <h4>Previsualizado de las Compras</h4>
+        </div>
+        <div class="carrito-items">
+        </div>
+        <div class="carrito-total">
+            <div class="fila">
+                <strong>Tu Total</strong>
+                <span class="carrito-precio-total">
+                    $120.000,00
+                </span>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button class="btn-pagar">Comprar <i class="fa-solid fa-bag-shopping"></i> </button>
+            }
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a class="textNoLogin" asp-controller="Usuarios" asp-action="GuardarPropioUser"><strong>Debes tener una cuenta para comprar..</strong></a>
+            }
+        </div>
+    </div>
+</section>
+
