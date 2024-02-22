@@ -1,7 +1,7 @@
 Integrantes:
 
 * Criollo Vigo, Matías Paolo
-* Diaz Gutierrez, Ivan Alejandro
-* Avalos Hernandez, Roger Espiritu Helaman
+* Silva Bances, Ivan Sebastian
+* Ramos Huapaya, Betzabe
  
-El proyecto fue realizado para el curso de Proyecto Certificador del 4º ciclo en el Instituto IDAT.
+El proyecto fue realizado para el curso de Proyecto Certificador del 6º ciclo en el Instituto IDAT.
