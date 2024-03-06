@@ -44,7 +44,7 @@
                                 <a class="nav-link navItems dropdown-toggle" data-bs-toggle="dropdown">Mantenimiento</a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Panes" asp-action="Listar">Panes</a>
+                                        <a class="nav-link text-dark" asp-controller="Panes" asp-action="Guardar">Panes</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Bocaditos" asp-action="Listar">Bocaditos</a>
@@ -123,13 +123,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/ContCar.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
-        let table1 = new DataTable('#TablaPanes');
-        let table2 = new DataTable('#TablaPasteles');
-        let table3 = new DataTable('#TablaBocaditos');
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

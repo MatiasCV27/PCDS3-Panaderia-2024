@@ -3,6 +3,7 @@ using PCDS2_Panaderia.Data;
 using PCDS2_Panaderia.Models;
 
 using Microsoft.AspNetCore.Authorization;
+using TechTalk.SpecFlow.CommonModels;
 
 namespace PCDS2_Panaderia.Controllers
 {
@@ -11,69 +12,56 @@ namespace PCDS2_Panaderia.Controllers
         PanesData _PanData = new PanesData();
 
         [Authorize(Roles = "ADMIN")]
+        public IActionResult Guardar(int id)
+        {
+            PanesModel pan = new PanesModel();
+            if(id == null) {
+                return View(pan);
+            } else {
+                pan = _PanData.ObtenerPanes(id);
+                return View(pan);  
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Listar()
         {
-            // La vista mostrara una Lista de Personas
             var oLista = _PanData.ListarPanes();
-            return View(oLista);
+            return Json(new { data = oLista });
         }
-        [Authorize(Roles = "ADMIN")]
-        public IActionResult Guardar()
-        {
-            // Metodo solo vuelve a la Vista
-            return View();
-        }
-        [Authorize(Roles = "ADMIN")]
+
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Guardar(PanesModel oPan)
         {
-            // Metodo recibe el objeto para guardarlo en BD
             if (!ModelState.IsValid)
                 return View();
 
-            var respuesta = _PanData.GuardarPanes(oPan);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
+            if (oPan.idPanes == 0) // Crea el registro
+            {
+                _PanData.GuardarPanes(oPan);
+                return RedirectToAction(nameof(Guardar));
+            }
             else
-                return View();
+            {
+                _PanData.EditarPanes(oPan);
+                return RedirectToAction(nameof(Guardar), new {id = 0});
+            }
+            return View();
         }
-        [Authorize(Roles = "ADMIN")]
-        public IActionResult Editar(int idPanes)
-        {
-            var oPersona = _PanData.ObtenerPanes(idPanes);
-            return View(oPersona);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Editar(PanesModel oPan)
-        {
-            if (!ModelState.IsValid)
-                return View();
 
-            var respuesta = _PanData.EditarPanes(oPan);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
-        }
+        [HttpDelete]
         [Authorize(Roles = "ADMIN")]
         public IActionResult Eliminar(int idPanes)
         {
             var oPan = _PanData.ObtenerPanes(idPanes);
-            return View(oPan);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Eliminar(PanesModel oPan)
-        {
-            var respuesta = _PanData.EliminarPanes(oPan.idPanes);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
+            if (oPan == null)
+            {
+                return Json(new {Success = false, message = "Error al borrar el Pna"});
+            }
+            _PanData.EliminarPanes(oPan.idPanes);
+            return Json(new { Success = true , message = "Pan eliminado exitosamente"});
         }
 
         // User Vista:
@@ -83,6 +71,5 @@ namespace PCDS2_Panaderia.Controllers
             return View(oLista);
         }
 
-        // Actualizar Stock
     }
 }
