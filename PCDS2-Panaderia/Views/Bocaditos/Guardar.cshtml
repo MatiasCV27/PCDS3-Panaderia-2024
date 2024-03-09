@@ -4,69 +4,110 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="imgEditarBoca">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="card" style="border: 1px solid white">
-                    <div class="card-header bg-dark text-white">
-                        <h2 class="text-center"><strong>Añadir un Nuevo Bocadito</strong></h2>
+<div style="margin-left: 5%; width: 90%;" class="mb-4">
+
+    <div class="row p-2 justify-content-between" , style="width: 100%;">
+        <div class="col-6">
+            <h2>Lista de Bocaditos</h2>
+        </div>
+        <div class="col-2 text-right" style="padding: 0;">
+            <button type="button" onclick="limpiarModalBoca()" class="btn btn-dark form-control" data-bs-toggle="modal" data-bs-target="#modalCrearBoca"><b><i class="bi bi-plus-circle"></i> Registrar</b></button>
+        </div>
+    </div>
+
+    <div class="border rounded bg-light p-2">
+        <table id="TablaBoca" class="table table-bordered table-responsive-xl" style="width: 100%; overflow: hidden; background-image: url('../../wwwroot/img/fondoMantenimientoPan.png') !important;">
+            <thead class="thead-dark">
+                <tr class="table-dark">
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Descripción</th>
+                    <th class="text-center">Costo</th>
+                    <th class="text-center">Creación</th>
+                    <th class="text-center">Vencimiento</th>
+                    <th class="text-center">Stock</th>
+                    <th class="text-center">Imagen</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="modal fade" id="modalCrearBoca" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center">Registrar Bocaditos</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="card-body bg-dark text-white">
-                        <form asp-action="Guardar" asp-controller="Bocaditos" method="post">
-                            <div class="mb-3">
-                                <label class="form-label">Marca</label>
-                                <select asp-for="marcaB" class="form-control">
-                                    <option value="Artesanal">Artesanal</option>
-                                    <option value="Bimbo">Bimbo</option>
-                                    <option value="Dempster">Dempster</option>
-                                    <option value="Aryzta">Aryzta</option>
-                                    <option value="Hovis">Hovis</option>
-                                </select>
-                                <span asp-validation-for="marcaB" class="text-danger"></span>
+                    <div class="modal-body">
+                        <div style="">
+                            <div class="row border-0">
+                                <div asp-validation-summary="ModelOnly" class="text-denger"></div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Nombre del Bocadito</label>
-                                <input asp-for="nombreB" type="text" class="form-control">
-                                <span asp-validation-for="nombreB" class="text-danger"></span>
+                            <input type="hidden" id="idBocaditos" asp-for="idBocaditos" />
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Nombre</label>
+                                    <input asp-for="nombreB" id="nombreBoca" class="form-control" placeholder="Alfajores" />
+                                    <span asp-validation-for="nombreB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label">Marca</label>
+                                    <select asp-for="marcaB" id="marcanBoca" class="form-control">
+                                        <option value="Artesanal">Artesanal</option>
+                                        <option value="Bimbo">Bimbo</option>
+                                        <option value="Dempster">Dempster</option>
+                                        <option value="Aryzta">Aryzta</option>
+                                        <option value="Hovis">Hovis</option>
+                                    </select>
+                                    <span asp-validation-for="marcaB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Costo</label>
+                                    <input asp-for="costoB" id="costBoca" type="number" class="form-control" placeholder="1" />
+                                    <span asp-validation-for="costoB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Stock disponible</label>
+                                    <input asp-for="stockB" id="stockBoca" type="number" class="form-control" placeholder="50" />
+                                    <span asp-validation-for="stockB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Fecha de registro</label>
+                                    <input asp-for="fechaCreacionB" id="fcBoca" type="date" class="form-control" />
+                                    <span asp-validation-for="fechaCreacionB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Fecha de vencimiento</label>
+                                    <input asp-for="fechaVencimiB" id="fvBoca" type="date" class="form-control" />
+                                    <span asp-validation-for="fechaVencimiB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Descripción</label>
+                                    <input asp-for="descripcionB" id="descBoca" class="form-control" placeholder="Es una opción clasica" />
+                                    <span asp-validation-for="descripcionB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Imagen referencial</label>
+                                    <input asp-for="imagenB" id="imgBoca" class="form-control" placeholder="https://example-boca.com" />
+                                    <span asp-validation-for="imagenB" class="text-danger"></span>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Descripcion del Bocadito</label>
-                                <input asp-for="descripcionB" type="text" class="form-control">
-                                <span asp-validation-for="descripcionB" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Costo del Bocadito</label>
-                                <input asp-for="costoB" type="number" class="form-control">
-                                <span asp-validation-for="costoB" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Fecha de Creacion</label>
-                                <input asp-for="fechaCreacionB" type="date" class="form-control">
-                                <span asp-validation-for="fechaCreacionB" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Fecha de Vencimineto</label>
-                                <input asp-for="fechaVencimiB" type="date" class="form-control">
-                                <span asp-validation-for="fechaVencimiB" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Stock Disponible</label>
-                                <input asp-for="stockB" type="number" class="form-control">
-                                <span asp-validation-for="stockB" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Imagen</label>
-                                <input asp-for="imagenB" type="text" class="form-control">
-                                <span asp-validation-for="imagenB" class="text-danger"></span>
-                            </div>
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> Guardar</button>
-                            <a asp-action="Listar" asp-controller="Bocaditos" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Volver a la lista</a>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
 </div>
 
+@section Scripts {
+    <script src="~/js/mant-bocadito.js"></script>
+}

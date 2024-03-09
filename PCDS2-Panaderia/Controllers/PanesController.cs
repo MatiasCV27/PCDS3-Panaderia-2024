@@ -58,7 +58,7 @@ namespace PCDS2_Panaderia.Controllers
             var oPan = _PanData.ObtenerPanes(idPanes);
             if (oPan == null)
             {
-                return Json(new {Success = false, message = "Error al borrar el Pna"});
+                return Json(new {Success = false, message = "Error al borrar el pan"});
             }
             _PanData.EliminarPanes(oPan.idPanes);
             return Json(new { Success = true , message = "Pan eliminado exitosamente"});

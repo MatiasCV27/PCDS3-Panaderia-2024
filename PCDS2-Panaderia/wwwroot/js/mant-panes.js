@@ -1,7 +1,5 @@
 ﻿var datatable;
 
-// PANES
-
 $(document).ready(function () {
     cargarTablaPanes();
     var id = document.getElementById("idPanes");
@@ -11,18 +9,15 @@ $(document).ready(function () {
 });
 
 function limpiarModalPanes() {
-    var idPanes = document.getElementById("idPanes");
-    var nombrePan = document.getElementById("nombrePan");
-    var marcaPan = document.getElementById("marcaPan");
-    var costPan = document.getElementById("costPan");
-    var stockPan = document.getElementById("stockPan");
-    var fcPan = document.getElementById("fcPan");
-    var fvPan = document.getElementById("fvPan");
-    var descPan = document.getElementById("descPan");
-    var imgPan = document.getElementById("imgPan");
-    idPanes.value = 0; nombrePan.value = ""; marcaPan.value = "";
-    costPan.value = 0, stockPan.value = 0; fcPan.value = "";
-    fvPan.value = "", descPan.value = "", imgPan.value = "";
+    document.getElementById("idPanes").value = 0;
+    document.getElementById("nombrePan").value = "";
+    document.getElementById("marcaPan").value = "";
+    document.getElementById("costPan").value = 0;
+    document.getElementById("stockPan").value = 0;
+    document.getElementById("fcPan").value = "";
+    document.getElementById("fvPan").value = "";
+    document.getElementById("descPan").value = "";
+    document.getElementById("imgPan").value = "";
 }
 
 function cargarTablaPanes() {
@@ -31,17 +26,37 @@ function cargarTablaPanes() {
             "url": "/Panes/Listar"
         },
         "columns": [
-            { "data": "marcaP" },
-            { "data": "nombreP" },
-            { "data": "descripcionP", "width": "30%" },
-            { "data": "costoP" },
+            {
+                "data": "marcaP",
+                "render": function (data, type, row) {
+                    return `<span style="font-size: 15px;">${data}</span>`;
+                }
+            },
+            {
+                "data": "nombreP",
+                "render": function (data, type, row) {
+                    return `<span style="font-size: 15px;">${data}</span>`;
+                }
+            },
+            {
+                "data": "descripcionP",
+                "render": function (data, type, row) {
+                    return `<span style="font-size: 15px;">${data}</span>`;
+                }
+            },
+            {
+                "data": "costoP",
+                "render": function (data, type, row) {
+                    return `<span style="font-size: 15px;">${data}</span>`;
+                }
+            },
             {
                 "data": "fechaCreacionP",
                 "render": function (data, type, row) {
                     if (data) {
                         var date = new Date(data);
                         var formattedDate = date.toLocaleDateString("es-ES");
-                        return formattedDate;
+                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
                     } else {
                         return "";
                     }
@@ -53,13 +68,18 @@ function cargarTablaPanes() {
                     if (data) {
                         var date = new Date(data);
                         var formattedDate = date.toLocaleDateString("es-ES");
-                        return formattedDate;
+                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
                     } else {
                         return "";
                     }
                 }
             },
-            { "data": "stockP" },
+            {
+                "data": "stockP",
+                "render": function (data, type, row) {
+                    return `<span style="font-size: 15px;">${data}</span>`;
+                }
+            },
             {
                 "data": "imagenP",
                 "render": function (data, type, row) {
@@ -75,8 +95,11 @@ function cargarTablaPanes() {
                             </div>`;
                 }
             },
-
-        ]
+        ],
+        "language": {
+            "url": '//cdn.datatables.net/plug-ins/2.0.1/i18n/es-ES.json',
+        },
+        
     });
 }
 
