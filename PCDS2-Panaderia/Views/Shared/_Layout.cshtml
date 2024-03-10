@@ -5,13 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Dulces Delicias</title>
+    <link rel="shortcut icon" href="~/LogoPanaderia.png" type="image/x-icon">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/ContCar.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/inicio.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/estilos.css" asp-append-version="true" />
-    <link rel="shortcut icon" href="~/LogoPanaderia.png" type="image/x-icon">
+    <link rel="stylesheet" href="~/css/perfilUsuario.css" asp-append-version="true" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +91,9 @@
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Acceso" asp-action="Salir">Salir</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Usuarios" asp-action="Perfil">Ver perfil</a>
                                     </li>
                                 </ul>
                             </div>
