@@ -11,69 +11,59 @@ namespace PCDS2_Panaderia.Controllers
         BocaditosData _BocaData = new BocaditosData();
 
         [Authorize(Roles = "ADMIN")]
+        public IActionResult Guardar(int id)
+        {
+            BocaditosModel boca = new BocaditosModel();
+            if (boca == null)
+            {
+                return View(boca);
+            }
+            else
+            {
+                boca = _BocaData.ObtenerBocaditos(id);
+                return View(boca);
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Listar()
         {
-            // La vista mostrara una Lista de Personas
-            var oLista = _BocaData.ListarBocaditos();
-            return View(oLista);
+            var oBoca = _BocaData.ListarBocaditos();
+            return Json(new { data = oBoca });
         }
-        [Authorize(Roles = "ADMIN")]
-        public IActionResult Guardar()
-        {
-            // Metodo solo vuelve a la Vista
-            return View();
-        }
-        [Authorize(Roles = "ADMIN")]
+
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Guardar(BocaditosModel oBoca)
         {
-            // Metodo recibe el objeto para guardarlo en BD
             if (!ModelState.IsValid)
                 return View();
 
-            var respuesta = _BocaData.GuardarBocaditos(oBoca);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
+            if (oBoca.idBocaditos == 0) // Crea el registro
+            {
+                _BocaData.GuardarBocaditos(oBoca);
+                return RedirectToAction(nameof(Guardar));
+            }
             else
-                return View();
+            {
+                _BocaData.EditarBocaditos(oBoca);
+                return RedirectToAction(nameof(Guardar), new { id = 0 });
+            }
+            return View();
         }
-        [Authorize(Roles = "ADMIN")]
-        public IActionResult Editar(int idBocaditos)
-        {
-            var oBoca = _BocaData.ObtenerBocaditos(idBocaditos);
-            return View(oBoca);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Editar(BocaditosModel oBoca)
-        {
-            if (!ModelState.IsValid)
-                return View();
 
-            var respuesta = _BocaData.EditarBocaditos(oBoca);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
-        }
+        [HttpDelete]
         [Authorize(Roles = "ADMIN")]
-        public IActionResult Eliminar(int idBocaditos)
+        public IActionResult Eliminar(int idBoca)
         {
-            var oBoca = _BocaData.ObtenerBocaditos(idBocaditos);
-            return View(oBoca);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Eliminar(BocaditosModel oBoca)
-        {
-            var respuesta = _BocaData.EliminarBocaditos(oBoca.idBocaditos);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
+            var oBoca = _BocaData.ObtenerBocaditos(idBoca);
+            if (oBoca == null)
+            {
+                return Json(new { Success = false, message = "Error al borrar el bocadito" });
+            }
+            _BocaData.EliminarBocaditos(oBoca.idBocaditos);
+            return Json(new { Success = true, message = "Bocadito eliminado exitosamente" });
         }
 
         // User Vista:

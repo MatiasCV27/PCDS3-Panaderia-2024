@@ -4,70 +4,110 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="imgEditarPan">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="card" style="border: 1px solid white">
-                    <div class="card-header bg-dark text-white">
-                        <h2 class="text-center"><strong>Añadir un Nuevo Pan</strong></h2>
+<div style="margin-left: 5%; width: 90%;" class="mb-4">
+
+    <div class="row p-2 justify-content-between" , style="width: 100%;">
+        <div class="col-6">
+            <h2>Lista de Panes</h2>
+        </div>
+        <div class="col-2 text-right" style="padding: 0;">
+            <button type="button" onclick="limpiarModalPanes()" class="btn btn-dark form-control" data-bs-toggle="modal" data-bs-target="#modalCrearPanes"><b><i class="bi bi-plus-circle"></i> Registrar</b></button>
+        </div>
+    </div>
+
+    <div class="border rounded bg-light p-2">
+        <table id="TablaPanes" class="table table-bordered table-responsive-xl" style="width: 100%; overflow: hidden; background-image: url('../../wwwroot/img/fondoMantenimientoPan.png') !important;">
+            <thead class="thead-dark">
+                <tr class="table-dark">
+                    <th class="text-center">Marca</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Descripción</th>
+                    <th class="text-center">Costo</th>
+                    <th class="text-center">Creación</th>
+                    <th class="text-center">Vencimiento</th>
+                    <th class="text-center">Stock</th>
+                    <th class="text-center">Imagen</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="modal fade" id="modalCrearPanes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center">Registrar Pan</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="card-body bg-dark text-white">
-                        <form asp-action="Guardar" asp-controller="Panes" method="post">
-                            <div class="mb-3">
-                                <label class="form-label">Marca</label>
-                                <select asp-for="marcaP" class="form-control">
-                                    <option value="Artesanal">Artesanal</option>
-                                    <option value="Bimbo">Bimbo</option>
-                                    <option value="Dempster">Dempster</option>
-                                    <option value="Aryzta">Aryzta</option>
-                                    <option value="Hovis">Hovis</option>
-                                </select>
-                                <span asp-validation-for="marcaP" class="text-danger"></span>
+                    <div class="modal-body">
+                        <div style="">
+                            <div class="row border-0">
+                                <div asp-validation-summary="ModelOnly" class="text-denger"></div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Nombre del Pan</label>
-                                <input asp-for="nombreP" type="text" class="form-control">
-                                <span asp-validation-for="nombreP" class="text-danger"></span>
+                            <input type="hidden" id="idPanes" asp-for="idPanes"/>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Nombre</label>
+                                    <input asp-for="nombreP" id="nombrePan" class="form-control" placeholder="Pan Chiabata" />
+                                    <span asp-validation-for="nombreP" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label">Marca</label>
+                                    <select asp-for="marcaP" id="marcaPan" class="form-control">
+                                        <option value="Artesanal">Artesanal</option>
+                                        <option value="Bimbo">Bimbo</option>
+                                        <option value="Dempster">Dempster</option>
+                                        <option value="Aryzta">Aryzta</option>
+                                        <option value="Hovis">Hovis</option>
+                                    </select>
+                                    <span asp-validation-for="marcaP" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Costo</label>
+                                    <input asp-for="costoP" id="costPan" type="number" class="form-control" placeholder="1" />
+                                    <span asp-validation-for="costoP" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Stock disponible</label>
+                                    <input asp-for="stockP" id="stockPan" type="number" class="form-control" placeholder="50" />
+                                    <span asp-validation-for="stockP" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Fecha de registro</label>
+                                    <input asp-for="fechaCreacionP" id="fcPan" type="date" class="form-control" />
+                                    <span asp-validation-for="fechaCreacionP" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Fecha de vencimiento</label>
+                                    <input asp-for="fechaVencimiP" id="fvPan" type="date" class="form-control" />
+                                    <span asp-validation-for="fechaVencimiP" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Descripción</label>
+                                    <input asp-for="descripcionP" id="descPan" class="form-control" placeholder="Es una opción clasica" />
+                                    <span asp-validation-for="descripcionP" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Imagen referencial</label>
+                                    <input asp-for="imagenP" id="imgPan" class="form-control" placeholder="https://example-pan.com" />
+                                    <span asp-validation-for="imagenP" class="text-danger"></span>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Descripcion del Pan</label>
-                                <input asp-for="descripcionP" type="text" class="form-control">
-                                <span asp-validation-for="descripcionP" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Costo del Pan</label>
-                                <input asp-for="costoP" type="number" class="form-control">
-                                <span asp-validation-for="costoP" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Fecha de Creacion</label>
-                                <input asp-for="fechaCreacionP" type="date" class="form-control">
-                                <span asp-validation-for="fechaCreacionP" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Fecha de Vencimineto</label>
-                                <input asp-for="fechaVencimiP" type="date" class="form-control">
-                                <span asp-validation-for="fechaVencimiP" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Stock Disponible</label>
-                                <input asp-for="stockP" type="number" class="form-control">
-                                <span asp-validation-for="stockP" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Imagen</label>
-                                <input asp-for="imagenP" type="text" class="form-control">
-                                <span asp-validation-for="imagenP" class="text-danger"></span>
-                            </div>
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> Guardar</button>
-                            <a asp-action="Listar" asp-controller="Panes" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Volver a la lista</a>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
 </div>
 
-
+@section Scripts {
+    <script src="~/js/mant-panes.js"></script>
+}

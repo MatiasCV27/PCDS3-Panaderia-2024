@@ -11,69 +11,59 @@ namespace PCDS2_Panaderia.Controllers
         TortasData _TorData = new TortasData();
 
         [Authorize(Roles = "ADMIN")]
+        public IActionResult Guardar(int id)
+        {
+            TortasModel torta = new TortasModel();
+            if (id == null)
+            {
+                return View(torta);
+            }
+            else
+            {
+                torta = _TorData.ObtenerTortas(id);
+                return View(torta);
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Listar()
         {
-            // La vista mostrara una Lista de Personas
             var oLista = _TorData.ListarTortas();
-            return View(oLista);
+            return Json(new { data = oLista });
         }
+
+        [HttpPost]
         [Authorize(Roles = "ADMIN")]
-        public IActionResult Guardar()
+        public IActionResult Guardar(TortasModel otorta)
         {
-            // Metodo solo vuelve a la Vista
+            if (!ModelState.IsValid)
+                return View();
+
+            if (otorta.idTortas == 0) // Crea el registro
+            {
+                _TorData.GuardarTortas(otorta);
+                return RedirectToAction(nameof(Guardar));
+            }
+            else
+            {
+                _TorData.EditarTortas(otorta);
+                return RedirectToAction(nameof(Guardar), new { id = 0 });
+            }
             return View();
         }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Guardar(TortasModel oTor)
-        {
-            // Metodo recibe el objeto para guardarlo en BD
-            if (!ModelState.IsValid)
-                return View();
 
-            var respuesta = _TorData.GuardarTortas(oTor);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
-        }
-        [Authorize(Roles = "ADMIN")]
-        public IActionResult Editar(int idTortas)
-        {
-            var oTorta = _TorData.ObtenerTortas(idTortas);
-            return View(oTorta);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Editar(TortasModel oTorta)
-        {
-            if (!ModelState.IsValid)
-                return View();
-
-            var respuesta = _TorData.EditarTortas(oTorta);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
-        }
+        [HttpDelete]
         [Authorize(Roles = "ADMIN")]
         public IActionResult Eliminar(int idTortas)
         {
             var oTorta = _TorData.ObtenerTortas(idTortas);
-            return View(oTorta);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Eliminar(TortasModel oTorta)
-        {
-            var respuesta = _TorData.EliminarTortas(oTorta.idTortas);
-
-            if (respuesta)
-                return RedirectToAction("Listar");
-            else
-                return View();
+            if (oTorta == null)
+            {
+                return Json(new { Success = false, message = "Error al borrar el pastel" });
+            }
+            _TorData.EliminarTortas(oTorta.idTortas);
+            return Json(new { Success = true, message = "Pastel eliminado exitosamente" });
         }
 
         // User Vista:
