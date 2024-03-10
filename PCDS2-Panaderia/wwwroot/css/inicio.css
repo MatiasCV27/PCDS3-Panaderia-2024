@@ -1,0 +1,35 @@
+﻿.imghome {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 70%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    color: #471f05;
+}
+
+.text-overlay h1 {
+    font-family: "Bungee", sans-serif;
+    font-size: 32px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.text-overlay h2 {
+    font-family: "Bungee", sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.text-overlay p {
+    font-family: "Rancho", cursive;
+    font-size: 25px;
+    margin-top: 50px;
+    color: #000000;
+    text-align: justify;
+}
