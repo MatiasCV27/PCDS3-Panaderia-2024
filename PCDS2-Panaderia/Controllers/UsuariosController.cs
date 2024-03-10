@@ -102,5 +102,11 @@ namespace PCDS2_Panaderia.Controllers
             else
                 return View();
         }
+
+        public IActionResult Perfil()
+        {
+            // Metodo solo vuelve a la Vista
+            return View();
+        }
     }
 }
