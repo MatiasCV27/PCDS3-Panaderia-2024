@@ -10,10 +10,14 @@ namespace PCDS2_Panaderia.Controllers
 {
     public class AccesoController : Controller
     {
+
+        UsuariosData _userData = new UsuariosData();
+
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> ValidarUser(UsuariosModel _usuario)
         {
@@ -36,10 +40,33 @@ namespace PCDS2_Panaderia.Controllers
                 return View();
             }
         }
+
         public async Task<IActionResult> Salir()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Acceso");
+        }
+
+        // Usuario Crea su propia cuenta
+        public IActionResult Registrarse()
+        {
+            // Metodo solo vuelve a la Vista
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Registrarse(UsuariosModel oUser)
+        {
+            // Metodo recibe el objeto para guardarlo en BD
+            if (!ModelState.IsValid)
+                return View();
+
+            var respuesta = _userData.GuardarUsuarios(oUser);
+
+            if (respuesta)
+                return RedirectToAction("Login", "Acceso");
+            else
+                return View();
         }
     }
 }

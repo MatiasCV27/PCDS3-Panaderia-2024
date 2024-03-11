@@ -82,27 +82,6 @@ namespace PCDS2_Panaderia.Controllers
             return View();
         }
 
-        // Usuario Crea su propia cuenta
-        public IActionResult GuardarPropioUser()
-        {
-            // Metodo solo vuelve a la Vista
-            return View();
-        }
-        [HttpPost]
-        public IActionResult GuardarPropioUser(UsuariosModel oUser)
-        {
-            // Metodo recibe el objeto para guardarlo en BD
-            if (!ModelState.IsValid)
-                return View();
-
-            var respuesta = _userData.GuardarUsuarios(oUser);
-
-            if (respuesta)
-                return RedirectToAction("Login", "Acceso");
-            else
-                return View();
-        }
-
         public IActionResult Perfil()
         {
             // Metodo solo vuelve a la Vista

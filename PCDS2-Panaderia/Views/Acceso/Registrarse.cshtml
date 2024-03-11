@@ -1,14 +1,19 @@
-﻿@model UsuariosModel
+﻿@model PCDS2_Panaderia.Models.UsuariosModel
+
 @{
-    ViewData["Title"] = "GuardarPropioUser";
+    ViewData["Title"] = "Registrarse";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+        <link rel="stylesheet" href="~/css/card.css" />
 }
 
 <div class="regisCont">
     <div class="col-lg-5 col-md-8 col-sm-10 mx-auto">
         <div class="login-box">
             <h4 class="text-white text-center" style="padding: .75em 0">Registro</h4>
-            <form asp-action="GuardarPropioUser" asp-controller="Usuarios" method="post">
+            <form asp-action="Registrarse" asp-controller="Acceso" method="post">
                 <div class="user-box">
                     <input type="text" asp-for="usuario" required="" />
                     <label>Nombre de Usuario:</label>
