@@ -3,11 +3,13 @@ go
 use DBPanaderia;
 go
 
+/*
 Select * From Panes
 Select * From Bocaditos
 Select * From Tortas
 Select * From Usuarios
- 
+*/
+
 -- Panes
 create table Panes (
 	idPanes 		Int Identity(1,1) Not null,
@@ -319,7 +321,8 @@ CREATE TABLE Facturas(
 	idFactura Int Primary Key,
 	idUsuario INT FOREIGN KEY REFERENCES usuarios(idUsuario),
 	fechaCompra Date,
-	pTotal Int,
+	cantProductos int,
+	precioTotal Int,
 );
 
 --- Agregar Panes
