@@ -261,8 +261,8 @@ create table Usuarios (
 );
 go
 
-Insert Into Usuarios Values('admin', 'admin@gmail.com', '123', 'ADMIN');
-Insert Into Usuarios Values('user', 'user@gmail.com', '123', 'USER');
+Insert Into Usuarios Values('', '', 'admin', 'admin@gmail.com', '123', 'ADMIN');
+Insert Into Usuarios Values('', '', 'user', 'user@gmail.com', '123', 'USER');
 go
 
 Create Procedure sp_ListarUsuarios
