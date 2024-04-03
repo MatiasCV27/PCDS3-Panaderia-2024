@@ -41,7 +41,15 @@
             </div>
             @if (User.Identity.IsAuthenticated)
             {
-                <button class="btn-pagar">Comprar <i class="fa-solid fa-bag-shopping"></i> </button>
+                <form action="/Acceso/Niubiz" method="post">
+                    <script id="javascriptBoton" src="js/checkout.js?qa=true" data-sessiontoken="f8185ea5bd33e3fbd82b09eac68c9377f658a422ac147b44d189f68f338bde8a"
+                            data-channel="web" data-merchantid="438933213" data-merchantlogo="img/logo.png" data-purchasenumber="1790" data-amount="10.5" data-recurrence="false"
+                            data-recurrencetype="fixedinitial" data-recurrencefrequency="quarterly" data-recurrenceamount="10.5" data-recurrencemaxamount="15.10" data-formbuttoncolor="#D80000"
+                            data-expirationminutes="15" data-usertoken="galdamez2001@gmail.com" data-timeouturl="timeout.html">
+                    </script>
+                    <button type="submit" class="start-js-btn modal-opener default" style="background: url(&quot;https://static-content-qas.vnforapps.com/v2/img/button/ES/navy/default/PayWith.png&quot;);"></button>
+                </form>
+                //<button class="btn-pagar">Comprar <i class="fa-solid fa-bag-shopping"></i> </button>
             }
             @if (!User.Identity.IsAuthenticated)
             {
