@@ -68,5 +68,10 @@ namespace PCDS2_Panaderia.Controllers
             else
                 return View();
         }
+
+        public IActionResult Niubiz()
+        {
+            return View();
+        }
     }
 }
