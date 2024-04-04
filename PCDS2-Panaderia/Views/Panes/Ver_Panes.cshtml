@@ -65,7 +65,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: 125,
+                            value: 100,
                         }
                     }]
                 }).catch(function (error) {
@@ -74,7 +74,7 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
-                    window.location.href = "Ver_Panes"
+                    window.location.href = "completado.html"
                 });
             },
 
