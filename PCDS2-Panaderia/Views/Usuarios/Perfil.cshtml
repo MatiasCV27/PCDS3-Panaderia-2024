@@ -5,7 +5,7 @@
 }
 
 @section Styles {
-    <link rel="stylesheet"  href="/css/perfilUsuario.css"/>
+    <link rel="stylesheet" href="/css/perfilUsuario.css"/>
 }
 
 <div class="container-fluid p-0">
@@ -19,10 +19,10 @@
                     <h2 class="text-center">Username</h2>
                 </div>
                 <div class="w-75 mb-4">
-                    <button type="button" class="btn btn-dark w-100">Historial de Usuario</button>
+                    <a href="@Url.Action("VerHistorial", "Usuario")" class="btn btn-dark w-100">Ver Historial</a>
                 </div>
                 <div class="w-75 mb-4">
-                    <button type="button" class="btn btn-dark w-100">Preguntas frecuentes</button>
+                    <button type="button" class="btn btn-dark w-100">Preguntas Frecuentes</button>
                 </div>
                 <div class="w-75 mb-4">
                     <button type="button" class="btn btn-danger w-100">Cerrar Sesión</button>

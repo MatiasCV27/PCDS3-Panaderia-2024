@@ -87,5 +87,14 @@ namespace PCDS2_Panaderia.Controllers
             // Metodo solo vuelve a la Vista
             return View();
         }
+
+        // Ver Historial
+        [HttpGet]
+        [Route("Usuario/VerHistorial")]
+        public IActionResult VerHistorial()
+        {
+            return View("~/Views/Usuarios/VerHistorial.cshtml");
+        }
+
     }
 }
