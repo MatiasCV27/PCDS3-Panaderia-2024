@@ -317,13 +317,35 @@ Begin
 End
 
 --- Factura
-CREATE TABLE Facturas(
-	idFactura Int Primary Key,
-	idUsuario INT FOREIGN KEY REFERENCES usuarios(idUsuario),
-	fechaCompra Date,
-	cantProductos int,
-	precioTotal Int,
-);
+CREATE TABLE Factura (
+	idFactura	Int Identity(1,1) Primary Key,
+	usuario		Varchar(50),
+	costo		Int,
+	descripcion Varchar(400),
+	fecha		Varchar(50)
+)
+
+Create Procedure sp_GuardarFactura(
+    @usuario        Varchar(50),
+    @costo			Int,
+    @descripcion	Varchar(400),
+    @fecha			Varchar(50)
+)
+As
+Begin
+    Insert Into Factura(usuario,costo,descripcion,fecha) 
+    Values(@usuario, @costo, @descripcion, @fecha)
+End
+go
+
+Create Procedure sp_ObtenerFacturas (
+    @usuario    Varchar(50)
+)
+AS
+Begin
+    Select * From Factura Where usuario = @usuario
+End
+go
 
 --- Agregar Panes
 INSERT INTO Panes (marcaP, nombreP, descripcionP, costoP, fechaCreacionP, fechaVencimiP, stockP, imagenP)
