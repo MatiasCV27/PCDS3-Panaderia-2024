@@ -66,7 +66,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: 75,
+                            value: 25,
                         },
                         description: 'Kamehameha'
                     }]
@@ -76,7 +76,11 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
-                    //window.location.href = "Ver_Panes"
+                    var fechaActual = new Date();
+                    var dia = fechaActual.getDate(); var mes = fechaActual.getMonth() + 1; 
+                    var año = fechaActual.getFullYear(); var horas = fechaActual.getHours();
+                    var minutos = fechaActual.getMinutes(); var segundos = fechaActual.getSeconds();
+                    var fechaFormateada = año + '-' + mes + '-' + dia + '   ' + horas + ':' + minutos + ':' + segundos
                     $.ajax({
                         url: '/Factura/CompraRealizada', 
                         type: 'POST',
@@ -85,7 +89,7 @@
                             usuario: 'admin',
                             costo: 50,
                             descripcion: 'Pan Fino X',
-                            fecha: new Date().toString()
+                            fecha: fechaFormateada
                         }),
                         success: function (response) {
                             console.log('Factura guardada exitosamente:', response);
