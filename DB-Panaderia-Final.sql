@@ -338,12 +338,10 @@ Begin
 End
 go
 
-Create Procedure sp_ObtenerFacturas (
-    @usuario    Varchar(50)
-)
-AS
+Create Procedure sp_ListarFactura
+As
 Begin
-    Select * From Factura Where usuario = @usuario
+    Select * From Factura 
 End
 go
 
