@@ -18,7 +18,7 @@
                 <span class="titulo-item">@item.nombreT</span>
                 <span class="otros-item">@item.marcaB</span>
                 <img src="@item.imagenT" class="img-item"/>
-                <span class="precio-item">S/. @item.costoT</span>
+                <span class="precio-item">$ @item.costoT</span>
                 <span class="otros-item d-none">Disponible @item.stockT</span>
                 <button class="boton-item">Agregar al carrito</button>
             </div>
@@ -40,7 +40,7 @@
             </div>
             @if (User.Identity.IsAuthenticated)
             {
-                <button class="btn-pagar">Comprar <i class="fa-solid fa-bag-shopping"></i> </button>
+                <div id="paypal-button-container"></div>
             }
             @if (!User.Identity.IsAuthenticated)
             {
@@ -52,4 +52,56 @@
 
 @section Scripts {
     <script src="~/js/ContCar.js"></script>
+
+    <script>
+
+        paypal.Buttons({
+            style: {
+                color: 'blue',
+                shape: 'pill',
+                label: 'pay'
+            },
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: 75,
+                        },
+                        description: 'Kamehameha'
+                    }]
+                }).catch(function (error) {
+                    console.error('Error creating PayPal order:', error);
+                });
+            },
+            onApprove: function (data, actions) {
+                actions.order.capture().then(function (detalles) {
+                    //window.location.href = "Ver_Panes"
+                    $.ajax({
+                        url: '/Factura/CompraRealizada',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            usuario: 'admin',
+                            costo: 50,
+                            descripcion: 'Pan Fino X',
+                            fecha: new Date().toString()
+                        }),
+                        success: function (response) {
+                            console.log('Factura guardada exitosamente:', response);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error al guardar la factura:', error);
+                        }
+                    });
+
+                    console.log(detalles);
+                });
+            },
+            onCancel(data) {
+                alert("Pago Cancelado");
+                console.log(data);
+            }
+        }).render('#paypal-button-container');
+    </script>
+
 }
