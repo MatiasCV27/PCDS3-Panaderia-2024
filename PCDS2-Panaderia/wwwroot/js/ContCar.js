@@ -33,29 +33,11 @@ function ready() {
         button.addEventListener('click', agregarAlCarritoClicked);
     }
     //Agregamos funcionalidad al botón comprar
-    document.getElementsByClassName('btn-pagar')[0].addEventListener('click', pagarClicked)
+    //document.getElementsByClassName('btn-pagar')[0].addEventListener('click', pagarClicked)
 }
 //Eliminamos todos los elementos del carrito y lo ocultamos
 function pagarClicked() {
-    var carritoItems = document.getElementsByClassName('carrito-items')[0];
-    var items = [];
-    for (var i = 0; i < carritoItems.children.length; i++) {
-        var item = carritoItems.children[i];
-        var imagenSrc = item.querySelector('.carrito-item img').src;
-        var titulo = item.querySelector('.carrito-item-titulo').innerText;
-        var cantidad = item.querySelector('.carrito-item-cantidad').value;
-        var precio = item.querySelector('.carrito-item-precio').innerText;
-        items.push({ imagenSrc, titulo, cantidad, precio });
-    }
-    //localStorage.setItem('carritoItems', JSON.stringify(items));
-    //window.location.href = "resumen.html";
-    //Elimino todos los elmentos del carrito
-    var carritoItems = document.getElementsByClassName('carrito-items')[0];
-    while (carritoItems.hasChildNodes()) {
-        carritoItems.removeChild(carritoItems.firstChild)
-    }
-    alert("Gracias por su comprta! ¡Vuelva Pronto!");
-    actualizarTotalCarrito();
+    console.log(actualizarTotalCarrito());
     ocultarCarrito();
 }
 //Funciòn que controla el boton clickeado de agregar al carrito

@@ -76,7 +76,6 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
-                    console.log(document.getElementsByClassName('carrito-precio-total'))
                     // Usuario del sistema
                     var usuario = "@User.Identity.Name"
                     // Costo
@@ -106,8 +105,8 @@
                             console.error('Error al guardar la factura:', error);
                         }
                     });
-  
-                  console.log(detalles);
+                    pagarClicked();
+                    console.log(detalles);
                 });
             },
             onCancel(data) {
