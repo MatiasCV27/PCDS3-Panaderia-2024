@@ -24,7 +24,7 @@ namespace PCDS2_Panaderia.Data
                         {
                             idFactura = Convert.ToInt32(dr["idFactura"]),
                             usuario = dr["usuario"].ToString(),
-                            costo = Convert.ToInt32(dr["costo"]),
+                            costo = Convert.ToDecimal(dr["costo"]),
                             descripcion = dr["descripcion"].ToString(),
                             fecha = dr["fecha"].ToString(),
                         });

@@ -41,7 +41,7 @@
             </div>
             @if (User.Identity.IsAuthenticated)
             {
-                <div id="paypal-button-container"></div>
+                <div id="paypal-button-panes"></div>
             }
             @if (!User.Identity.IsAuthenticated)
             {
@@ -66,9 +66,9 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: 25,
+                            value: 40,
                         },
-                        description: 'Kamehameha'
+                        description: 'Esto fue comprado en la vista para panes'
                     }]
                 }).catch(function (error) {
                     console.error('Error creating PayPal order:', error);
@@ -76,6 +76,14 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
+
+                    // Usuario del sistema
+                    var usuario = "@User.Identity.Name"
+                    // Costo
+                    var costo = detalles.purchase_units[0].amount.value;
+                    // Descripcion
+                    var descripcion = detalles.purchase_units[0].description;
+                    // Fecha actual
                     var fechaActual = new Date();
                     var dia = fechaActual.getDate(); var mes = fechaActual.getMonth() + 1; 
                     var año = fechaActual.getFullYear(); var horas = fechaActual.getHours();
@@ -86,9 +94,9 @@
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            usuario: 'admin',
-                            costo: 50,
-                            descripcion: 'Pan Fino X',
+                            usuario: usuario,
+                            costo: costo,
+                            descripcion: descripcion,
                             fecha: fechaFormateada
                         }),
                         success: function (response) {
@@ -106,7 +114,7 @@
                 alert("Pago Cancelado");
                 console.log(data);
             }
-        }).render('#paypal-button-container');
+        }).render('#paypal-button-panes');
     </script>
 
 }

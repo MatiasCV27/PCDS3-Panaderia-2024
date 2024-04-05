@@ -40,7 +40,7 @@
             </div>
             @if (User.Identity.IsAuthenticated)
             {
-                <div id="paypal-button-container"></div>
+                <div id="paypal-button-pasteles"></div>
             }
             @if (!User.Identity.IsAuthenticated)
             {
@@ -65,9 +65,9 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: 75,
+                            value: 40,
                         },
-                        description: 'Kamehameha'
+                        description: 'Esto fue comprado en la vista para pasteles'
                     }]
                 }).catch(function (error) {
                     console.error('Error creating PayPal order:', error);
@@ -75,16 +75,28 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
-                    //window.location.href = "Ver_Panes"
+
+                    // Usuario del sistema
+                    var usuario = "@User.Identity.Name"
+                    // Costo
+                    var costo = detalles.purchase_units[0].amount.value;
+                    // Descripcion
+                    var descripcion = detalles.purchase_units[0].description;
+                    // Fecha actual
+                    var fechaActual = new Date();
+                    var dia = fechaActual.getDate(); var mes = fechaActual.getMonth() + 1;
+                    var año = fechaActual.getFullYear(); var horas = fechaActual.getHours();
+                    var minutos = fechaActual.getMinutes(); var segundos = fechaActual.getSeconds();
+                    var fechaFormateada = año + '-' + mes + '-' + dia + '   ' + horas + ':' + minutos + ':' + segundos
                     $.ajax({
                         url: '/Factura/CompraRealizada',
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            usuario: 'admin',
-                            costo: 50,
-                            descripcion: 'Pan Fino X',
-                            fecha: new Date().toString()
+                            usuario: usuario,
+                            costo: costo,
+                            descripcion: descripcion,
+                            fecha: fechaFormateada
                         }),
                         success: function (response) {
                             console.log('Factura guardada exitosamente:', response);
@@ -101,7 +113,8 @@
                 alert("Pago Cancelado");
                 console.log(data);
             }
-        }).render('#paypal-button-container');
+        }).render('#paypal-button-pasteles');
+
     </script>
 
 }

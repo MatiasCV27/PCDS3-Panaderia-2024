@@ -34,7 +34,7 @@
 			<div class="historial">
 				<h1 class="titulo-historial"><strong>Historial de Pagos</strong></h1>
 				<div class="cont-historial">
-					@foreach (var item in Model.Where(f => f.usuario.Contains("admin")))
+					@foreach (var item in Model.Where(f => f.usuario.Contains(@User.Identity.Name)))
 					{
 						<div class="card-historial">
 							<h5 class="card-hist-titulo m-0">Fecha de compra: @item.fecha</h5>

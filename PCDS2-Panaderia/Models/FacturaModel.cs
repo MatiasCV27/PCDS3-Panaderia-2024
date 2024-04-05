@@ -10,7 +10,7 @@ namespace PCDS2_Panaderia.Models
         [Required]
         public string? usuario { get; set; }
         [Required]
-        public int costo { get; set; }
+        public decimal? costo { get; set; }
         [Required]
         public string? descripcion { get; set; }
         [Required]
