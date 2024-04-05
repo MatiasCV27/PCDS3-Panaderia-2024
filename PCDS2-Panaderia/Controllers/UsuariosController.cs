@@ -89,11 +89,14 @@ namespace PCDS2_Panaderia.Controllers
         }
 
         // Ver Historial
-        [HttpGet]
-        [Route("Usuario/VerHistorial")]
-        public IActionResult VerHistorial()
+        FacturaData _facturaData = new FacturaData();
+
+		[HttpGet]
+		[Route("Usuario/VerHistorial")]
+		public IActionResult VerHistorial()
         {
-            return View("~/Views/Usuarios/VerHistorial.cshtml");
+            var oLista = _facturaData.ListarFactura();
+            return View(oLista);
         }
 
     }

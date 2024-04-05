@@ -55,6 +55,7 @@
     <script src="~/js/ContCar.js"></script>
 
     <script>
+
         paypal.Buttons({
             style: {
                 color: 'blue',
@@ -81,9 +82,9 @@
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            usuario: 'nombre_usuario',
-                            costo: 125,
-                            descripcion: 'Producto X',
+                            usuario: 'admin',
+                            costo: 50,
+                            descripcion: 'Pan Fino X',
                             fecha: new Date().toString()
                         }),
                         success: function (response) {
