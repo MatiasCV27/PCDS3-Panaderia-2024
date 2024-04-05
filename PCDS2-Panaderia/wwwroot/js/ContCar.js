@@ -1,4 +1,5 @@
-﻿//Variable que mantiene el estado visible del carrito
+﻿
+//Variable que mantiene el estado visible del carrito
 var carritoVisible = false;
 //Espermos que todos los elementos de la pàgina cargen para ejecutar el script
 if (document.readyState == 'loading') {
@@ -185,7 +186,7 @@ function actualizarTotalCarrito() {
         var item = carritoItems[i];
         var precioElemento = item.getElementsByClassName('carrito-item-precio')[0];
         //quitamos el simobolo peso y el punto de milesimos.
-        var precio = parseFloat(precioElemento.innerText.replace('$', ''));
+        var precio = parseFloat(precioElemento.innerText.replace('S/.', ''));
         var cantidadItem = item.getElementsByClassName('carrito-item-cantidad')[0];
         console.log(precio);
         var cantidad = cantidadItem.value;
@@ -193,6 +194,5 @@ function actualizarTotalCarrito() {
     }
     total = Math.round(total * 100) / 100;
     // Formatear el total con punto como separador de miles
-    var totalFormateado = total.toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + totalFormateado;
+    document.getElementsByClassName('carrito-precio-total')[0].innerText = total;
 }
