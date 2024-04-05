@@ -320,16 +320,16 @@ End
 CREATE TABLE Factura (
 	idFactura	Int Identity(1,1) Primary Key,
 	usuario		Varchar(50),
-	costo		Int,
-	descripcion Varchar(400),
+	costo		Decimal(12, 2),
+	descripcion 	Varchar(400),
 	fecha		Varchar(50)
 )
 
 Create Procedure sp_GuardarFactura(
-    @usuario        Varchar(50),
-    @costo			Int,
+    @usuario        	Varchar(50),
+    @costo		Decimal(12, 2),
     @descripcion	Varchar(400),
-    @fecha			Varchar(50)
+    @fecha		Varchar(50)
 )
 As
 Begin
@@ -344,7 +344,7 @@ Begin
     Select * From Factura 
 End
 go
-
+	
 --- Agregar Panes
 INSERT INTO Panes (marcaP, nombreP, descripcionP, costoP, fechaCreacionP, fechaVencimiP, stockP, imagenP)
 VALUES ('Artesanal', 'Pan Chiabata', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/Pan-Baguette-300x300.png'),
