@@ -55,7 +55,6 @@
     <script src="~/js/ContCar.js"></script>
 
     <script>
-
         paypal.Buttons({
             style: {
                 color: 'blue',
@@ -63,12 +62,24 @@
                 label: 'pay'
             },
             createOrder: function (data, actions) {
+                // Obtener la desripcion:
+                var elementos = document.getElementsByClassName('carrito-item-titulo');
+                var listadoDeCompras = "";
+                for (var i = 0; i < elementos.length; i++) {
+                    listadoDeCompras += elementos[i].innerText + " x " + document.getElementsByClassName('carrito-item-cantidad')[i].value;
+                    if (i < elementos.length - 1) {
+                        listadoDeCompras += ", ";
+                    }
+                }
+                // Obtener el total:
+                var totalTexto = document.getElementsByClassName('carrito-precio-total')[0].innerText;
+                var totalNumerico = totalTexto.replace('S/.', '').replace(',00', '');
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: 40,
+                            value: parseInt(totalNumerico),
                         },
-                        description: 'Esto fue comprado en la vista para bocaditos'
+                        description: listadoDeCompras
                     }]
                 }).catch(function (error) {
                     console.error('Error creating PayPal order:', error);
@@ -76,7 +87,6 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
-
                     // Usuario del sistema
                     var usuario = "@User.Identity.Name"
                     // Costo
@@ -106,7 +116,6 @@
                             console.error('Error al guardar la factura:', error);
                         }
                     });
-
                     console.log(detalles);
                 });
             },
@@ -114,7 +123,7 @@
                 alert("Pago Cancelado");
                 console.log(data);
             }
-        }).render('#paypal-button-bocaditos');
+        }).render('#paypal-button-panes');
     </script>
 
 }
