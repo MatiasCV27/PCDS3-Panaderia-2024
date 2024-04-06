@@ -33,18 +33,18 @@
 				<div class="cont-historial">
 					@foreach (var item in Model.Where(f => f.usuario.Contains(@User.Identity.Name)))
 					{
-						<div class="card-historial">
-							<h5 class="card-hist-titulo m-0">Fecha de compra: @item.fecha</h5>
+						<div class="card-historial" style="width: 250px">
+							<h5 class="card-hist-titulo m-0">Fecha: @item.fecha</h5>
 							<h5 class="card-hist-cont-header">
-								<p class="m-0">Productos:</p><p class="m-0">Precio en $:</p>
+								<p class="m-0">Productos / Cantidad:</p>
 							</h5>
-							<h5 class="card-hist-cont">
+							<h5 class="card-hist-cont" style="font-size: .9em">
 								<div class="m-0">
 									<p>@Html.Raw(item.descripcion.Replace("\n", "<br />"))</p>
 								</div>
 							</h5>
 							<h5 class="card-hist-footer">
-								<p>Precio total:</p><p>$ @item.costo</p>
+								<p>Precio Total:</p><p>$ @item.costo</p>
 							</h5>
 						</div>
 					}
