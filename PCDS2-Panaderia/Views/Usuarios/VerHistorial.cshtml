@@ -43,7 +43,7 @@
 							</h5>
 							<h5 class="card-hist-cont">
 								<div class="m-0">
-									<p>@item.descripcion</p>
+									<p>@Html.Raw(item.descripcion.Replace("\n", "<br />"))</p>
 								</div>
 							</h5>
 							<h5 class="card-hist-footer">

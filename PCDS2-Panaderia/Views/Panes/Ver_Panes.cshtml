@@ -66,9 +66,9 @@
                 var elementos = document.getElementsByClassName('carrito-item-titulo');
                 var listadoDeCompras = "";
                 for (var i = 0; i < elementos.length; i++) {
-                    listadoDeCompras += elementos[i].innerText + " x " + document.getElementsByClassName('carrito-item-cantidad')[i].value;
+                    listadoDeCompras += elementos[i].innerText + " x " + document.getElementsByClassName('carrito-item-cantidad')[i].value + "\n";
                     if (i < elementos.length - 1) {
-                        listadoDeCompras += ", ";
+                        listadoDeCompras += "";
                     }
                 }
                 // Obtener el total:
