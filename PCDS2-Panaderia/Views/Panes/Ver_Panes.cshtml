@@ -63,10 +63,12 @@
                 label: 'pay'
             },
             createOrder: function (data, actions) {
+                var totalTexto = document.getElementsByClassName('carrito-precio-total')[0].innerText;
+                var totalNumerico = totalTexto.replace('S/.', '').replace(',00', '');
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: 40,
+                            value: parseInt(totalNumerico),
                         },
                         description: 'Esto fue comprado en la vista para panes'
                     }]
@@ -76,6 +78,8 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
+                    var totalTexto = document.getElementsByClassName('carrito-precio-total')[0].innerText;
+                    var totalNumerico = totalTexto.replace('S/.', '').replace(',00', '');
                     // Usuario del sistema
                     var usuario = "@User.Identity.Name"
                     // Costo
@@ -105,7 +109,8 @@
                             console.error('Error al guardar la factura:', error);
                         }
                     });
-                    pagarClicked();
+                    console.log(totalNumerico);
+                    console.log(typeof parseInt(totalNumerico))
                     console.log(detalles);
                 });
             },

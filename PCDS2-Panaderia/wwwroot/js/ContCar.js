@@ -178,3 +178,4 @@ function actualizarTotalCarrito() {
     // Formatear el total con punto como separador de miles
     document.getElementsByClassName('carrito-precio-total')[0].innerText = total;
 }
+
