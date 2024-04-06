@@ -64,6 +64,14 @@
             },
             createOrder: function (data, actions) {
                 // Obtener la desripcion:
+                var elementos = document.getElementsByClassName('carrito-item-titulo');
+                var listadoDeCompras = "";
+                for (var i = 0; i < elementos.length; i++) {
+                    listadoDeCompras += elementos[i].innerText + " x " + document.getElementsByClassName('carrito-item-cantidad')[i].value;
+                    if (i < elementos.length - 1) {
+                        listadoDeCompras += ", ";
+                    }
+                }
                 // Obtener el total:
                 var totalTexto = document.getElementsByClassName('carrito-precio-total')[0].innerText;
                 var totalNumerico = totalTexto.replace('S/.', '').replace(',00', '');
@@ -72,7 +80,7 @@
                         amount: {
                             value: parseInt(totalNumerico),
                         },
-                        description: 'Esto fue comprado en la vista para panes'
+                        description: listadoDeCompras
                     }]
                 }).catch(function (error) {
                     console.error('Error creating PayPal order:', error);
@@ -80,18 +88,6 @@
             },
             onApprove: function (data, actions) {
                 actions.order.capture().then(function (detalles) {
-                    var totalTexto = document.getElementsByClassName('carrito-precio-total')[0].innerText;
-                    var totalNumerico = totalTexto.replace('S/.', '').replace(',00', '');
-
-                    var elementos = document.getElementsByClassName('carrito-item-titulo');
-                    var titulos = "";
-                    for (var i = 0; i < elementos.length; i++) {
-                        titulos += elementos[i].innerText + " x " + document.getElementsByClassName('carrito-item-cantidad')[i].value;
-                        if (i < elementos.length - 1) {
-                            titulos += ", ";
-                        }
-                    }
-
                     // Usuario del sistema
                     var usuario = "@User.Identity.Name"
                     // Costo
@@ -121,9 +117,6 @@
                             console.error('Error al guardar la factura:', error);
                         }
                     });
-                    console.log(totalNumerico);
-                    console.log(typeof parseInt(totalNumerico))
-                    console.log(titulos);
                     console.log(detalles);
                 });
             },
