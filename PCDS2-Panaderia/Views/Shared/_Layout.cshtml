@@ -83,10 +83,10 @@
                                 <a class="nav-link navItems dropdown-toggle" data-bs-toggle="dropdown"><strong>@User.Identity.Name</strong></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Acceso" asp-action="Salir">Salir</a>
+                                        <a class="nav-link text-dark" href="@Url.Action("VerHistorial", "Usuario")">Ver Historial</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Usuarios" asp-action="Perfil">Ver perfil</a>
+                                        <a class="nav-link text-dark" asp-controller="Acceso" asp-action="Salir">Cerrar Sesión</a>
                                     </li>
                                 </ul>
                             </div>
