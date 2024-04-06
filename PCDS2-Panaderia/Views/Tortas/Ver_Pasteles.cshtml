@@ -94,12 +94,12 @@
                     var descripcion = detalles.purchase_units[0].description;
                     // Fecha actual
                     var fechaActual = new Date();
-                    var dia = fechaActual.getDate(); var mes = fechaActual.getMonth() + 1; 
+                    var dia = fechaActual.getDate(); var mes = fechaActual.getMonth() + 1;
                     var año = fechaActual.getFullYear(); var horas = fechaActual.getHours();
                     var minutos = fechaActual.getMinutes(); var segundos = fechaActual.getSeconds();
                     var fechaFormateada = año + '-' + mes + '-' + dia + '   ' + horas + ':' + minutos + ':' + segundos
                     $.ajax({
-                        url: '/Factura/CompraRealizada', 
+                        url: '/Factura/CompraRealizada',
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify({
@@ -122,7 +122,7 @@
                 alert("Pago Cancelado");
                 console.log(data);
             }
-        }).render('#paypal-button-panes');
+        }).render('#paypal-button-pasteles');
     </script>
 
 }
