@@ -18,8 +18,6 @@ create table Panes (
     	nombreP 		Varchar(50) not null,
     	descripcionP 		Varchar(200) null,
     	costoP			decimal not null,
-    	fechaCreacionP 		Date null,
-    	fechaVencimiP 		Date null,
 	stockP			Int not null,
 	imagenP			Varchar(200),
     	constraint pk_Panes Primary key(idPanes)
@@ -51,15 +49,13 @@ Create Procedure sp_GuardarPanes(
     @nombreP        Varchar(50),
     @descripcionP   Varchar(200),
     @costoP         decimal,
-    @fechaCreacionP Date,
-    @fechaVencimiP  Date,
     @stockP	    Int,
     @imagenP	    Varchar(200)
 )
 As
 Begin
-    Insert Into Panes(marcaP,nombreP,descripcionP,costoP,fechaCreacionP,fechaVencimiP,stockP,imagenP) 
-    Values(@marcaP,@nombreP,@descripcionP,@costoP,@fechaCreacionP,@fechaVencimiP,@stockP,@imagenP)
+    Insert Into Panes(marcaP,nombreP,descripcionP,costoP,stockP,imagenP) 
+    Values(@marcaP,@nombreP,@descripcionP,@costoP,@stockP,@imagenP)
 End
 go
 
@@ -69,15 +65,13 @@ Create Procedure sp_EditarPanes(
     @nombreP        Varchar(50),
     @descripcionP   Varchar(200),
     @costoP         decimal,
-    @fechaCreacionP Date,
-    @fechaVencimiP  Date,
     @stockP         Int,
     @imagenP	    Varchar(200)
 )
 As
 Begin
 	Update Panes Set marcaP = @marcaP, nombreP = @nombreP, descripcionP = @descripcionP,
-    costoP = @costoP, fechaCreacionP = @fechaCreacionP, fechaVencimiP = @fechaVencimiP, stockP = @stockP, 
+    costoP = @costoP, stockP = @stockP, 
 	imagenP = @imagenP Where idPanes = @idPanes
 End
 go
@@ -99,8 +93,6 @@ create table Bocaditos (
     nombreB 		Varchar(50) not null,
     descripcionB 	Varchar(200) null,
     costoB			decimal not null,
-    fechaCreacionB 	Date null,
-    fechaVencimiB 	Date null,
 	stockB			Int not null,
 	imagenB			Varchar(200),
     constraint pk_Bocad Primary key(idBocaditos)
@@ -129,15 +121,13 @@ Create Procedure sp_GuardarBocaditos(
     @nombreB        Varchar(50),
     @descripcionB   Varchar(200),
     @costoB         decimal,
-    @fechaCreacionB Date,
-    @fechaVencimiB  Date,
 	@stockB			Int,
 	@imagenB		Varchar(200)
 )
 As
 Begin
-    Insert Into Bocaditos(marcaB,nombreB,descripcionB,costoB,fechaCreacionB,fechaVencimiB,stockB,imagenB) 
-    Values(@marcaB,@nombreB,@descripcionB,@costoB,@fechaCreacionB,@fechaVencimiB,@stockB,@imagenB)
+    Insert Into Bocaditos(marcaB,nombreB,descripcionB,costoB,stockB,imagenB) 
+    Values(@marcaB,@nombreB,@descripcionB,@costoB,@stockB,@imagenB)
 End
 go
 
@@ -147,15 +137,13 @@ Create Procedure sp_EditarBocaditos(
     @nombreB        Varchar(50),
     @descripcionB   Varchar(200),
     @costoB         decimal,
-    @fechaCreacionB Date,
-    @fechaVencimiB  Date,
 	@stockB			Int,
 	@imagenB		Varchar(200)
 )
 As
 Begin
     Update Bocaditos Set marcaB = @marcaB, nombreB = @nombreB, descripcionB = @descripcionB,
-    costoB = @costoB, fechaCreacionB = @fechaCreacionB, fechaVencimiB = @fechaVencimiB, stockB = @stockB, imagenB = @imagenB
+    costoB = @costoB, stockB = @stockB, imagenB = @imagenB
     Where idBocaditos = @idBocaditos
 End
 go
@@ -177,8 +165,6 @@ create table Tortas (
     nombreT			Varchar(50) not null,
     descripcionT 	Varchar(200) null,
     costoT			decimal not null,
-    fechaCreacionT 	Date null,
-    fechaVencimi 	Date null,
 	stockT			Int not null,
 	imagenT			Varchar(200),
     constraint pk_Tortas Primary key(idTortas)
@@ -206,16 +192,14 @@ Create Procedure sp_GuardarTortas(
     @marcaB         Varchar(25),
     @nombreT        Varchar(50),
     @descripcionT   Varchar(200),
-    @costoT         decimal,
-    @fechaCreacionT Date,
-    @fechaVencimi   Date,
+    @costoT         decimal,,
 	@stockT			Int,
 	@imagenT		Varchar(200)
 )
 As
 Begin
-    Insert Into Tortas(marcaB,nombreT,descripcionT,costoT,fechaCreacionT,fechaVencimi,stockT,imagenT) 
-    Values(@marcaB,@nombreT,@descripcionT,@costoT,@fechaCreacionT,@fechaVencimi,@stockT,@imagenT)
+    Insert Into Tortas(marcaB,nombreT,descripcionT,costoT,stockT,imagenT) 
+    Values(@marcaB,@nombreT,@descripcionT,@costoT,@stockT,@imagenT)
 End
 go
 
@@ -225,15 +209,13 @@ Create Procedure sp_EditarTortas(
     @nombreT        Varchar(50),
     @descripcionT   Varchar(200),
     @costoT         decimal,
-    @fechaCreacionT Date,
-    @fechaVencimi   Date,
 	@stockT			Int,
 	@imagenT		Varchar(200)
 )
 As
 Begin
     Update Tortas Set marcaB = @marcaB, nombreT = @nombreT, descripcionT = @descripcionT,
-    costoT = @costoT, fechaCreacionT = @fechaCreacionT, fechaVencimi = @fechaVencimi, stockT = @stockT, imagenT = @imagenT
+    costoT = @costoT, stockT = @stockT, imagenT = @imagenT
     Where idTortas = @idTortas
 End
 go
