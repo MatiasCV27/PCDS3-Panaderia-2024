@@ -3,7 +3,6 @@ using PCDS2_Panaderia.Data;
 using PCDS2_Panaderia.Models;
 
 using Microsoft.AspNetCore.Authorization;
-using TechTalk.SpecFlow.CommonModels;
 
 namespace PCDS2_Panaderia.Controllers
 {

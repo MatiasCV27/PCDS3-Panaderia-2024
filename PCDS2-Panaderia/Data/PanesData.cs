@@ -27,8 +27,6 @@ namespace PCDS2_Panaderia.Data
                             nombreP = dr["nombreP"].ToString(),
                             descripcionP = dr["descripcionP"].ToString(),
                             costoP = Convert.ToDecimal(dr["costoP"]),
-                            fechaCreacionP = Convert.ToDateTime(dr["fechaCreacionP"].ToString()),
-                            fechaVencimiP = Convert.ToDateTime(dr["fechaVencimiP"].ToString()),
                             stockP = Convert.ToInt32(dr["stockP"]),
                             imagenP = dr["imagenP"].ToString(),
                         });
@@ -57,8 +55,6 @@ namespace PCDS2_Panaderia.Data
                         oPanes.nombreP = dr["nombreP"].ToString();
                         oPanes.descripcionP = dr["descripcionP"].ToString();
                         oPanes.costoP = Convert.ToDecimal(dr["costoP"]);
-                        oPanes.fechaCreacionP = Convert.ToDateTime(dr["fechaCreacionP"].ToString());
-                        oPanes.fechaVencimiP = Convert.ToDateTime(dr["fechaVencimiP"].ToString());
                         oPanes.stockP = Convert.ToInt32(dr["stockP"]);
                         oPanes.imagenP = dr["imagenP"].ToString();
                     }
@@ -81,8 +77,6 @@ namespace PCDS2_Panaderia.Data
                     cmd.Parameters.AddWithValue("nombreP", oPanes.nombreP);
                     cmd.Parameters.AddWithValue("descripcionP", oPanes.descripcionP);
                     cmd.Parameters.AddWithValue("costoP", oPanes.costoP);
-                    cmd.Parameters.AddWithValue("fechaCreacionP", oPanes.fechaCreacionP);
-                    cmd.Parameters.AddWithValue("fechaVencimiP", oPanes.fechaVencimiP);
                     cmd.Parameters.AddWithValue("stockP", oPanes.stockP);
                     cmd.Parameters.AddWithValue("imagenP", oPanes.imagenP);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -114,8 +108,6 @@ namespace PCDS2_Panaderia.Data
                     cmd.Parameters.AddWithValue("nombreP", oPanes.nombreP);
                     cmd.Parameters.AddWithValue("descripcionP", oPanes.descripcionP);
                     cmd.Parameters.AddWithValue("costoP", oPanes.costoP);
-                    cmd.Parameters.AddWithValue("fechaCreacionP", oPanes.fechaCreacionP);
-                    cmd.Parameters.AddWithValue("fechaVencimiP", oPanes.fechaVencimiP);
                     cmd.Parameters.AddWithValue("stockP", oPanes.stockP);
                     cmd.Parameters.AddWithValue("imagenP", oPanes.imagenP);
                     cmd.CommandType = CommandType.StoredProcedure;

@@ -13,9 +13,7 @@ function limpiarModalPanes() {
     document.getElementById("nombrePan").value = "";
     document.getElementById("marcaPan").value = "";
     document.getElementById("costPan").value = 0;
-    document.getElementById("stockPan").value = 0;
-    document.getElementById("fcPan").value = "";
-    document.getElementById("fvPan").value = "";
+    //document.getElementById("stockPan").value = 0;
     document.getElementById("descPan").value = "";
     document.getElementById("imgPan").value = "";
 }
@@ -48,30 +46,6 @@ function cargarTablaPanes() {
                 "data": "costoP",
                 "render": function (data, type, row) {
                     return `<span style="font-size: 15px;">${data}</span>`;
-                }
-            },
-            {
-                "data": "fechaCreacionP",
-                "render": function (data, type, row) {
-                    if (data) {
-                        var date = new Date(data);
-                        var formattedDate = date.toLocaleDateString("es-ES");
-                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
-                    } else {
-                        return "";
-                    }
-                }
-            },
-            {
-                "data": "fechaVencimiP",
-                "render": function (data, type, row) {
-                    if (data) {
-                        var date = new Date(data);
-                        var formattedDate = date.toLocaleDateString("es-ES");
-                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
-                    } else {
-                        return "";
-                    }
                 }
             },
             {

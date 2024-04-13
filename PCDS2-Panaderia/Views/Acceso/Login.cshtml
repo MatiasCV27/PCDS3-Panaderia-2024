@@ -14,16 +14,16 @@
         <div class="col-lg-4 col-md-8 col-sm-10 mx-auto">
             <div class="login-box">
                 <h4 class="text-white text-center" style="padding: .75em 0">Login de la Página</h4>
-                <form asp-controller="Acceso" asp-action="ValidarUser" method="post">
+                <form id="formLogin" asp-controller="Acceso" asp-action="ValidarUser" method="post">
                     <div class="user-box">
-                        <input type="text" asp-for="usuario" required="" />
+                        <input type="text" asp-for="usuario" id="usuarioLogin"/>
                         <label>Usuario:</label>
                     </div>
                     <div class="user-box">
-                        <input type="password" asp-for="clave" required="" />
+                        <input type="password" asp-for="clave" id="passwordLogin"/>
                         <label>Contraseña:</label>
                     </div>
-                    <p style="margin: 0;" align="center"><a class="sinCuenta" asp-controller="Usuarios" asp-action="GuardarPropioUser">¿No tienes cuenta?, click aqui</a></p>
+                    <p style="margin: 0;" align="center"><a class="sinCuenta" asp-controller="Acceso" asp-action="Registrarse">¿No tienes cuenta?, click aqui</a></p>
                     <center>
                         <button type="submit" id="EnviarB"><strong>Ingresar</strong></button>
                     </center>
@@ -33,3 +33,66 @@
     </div>
 </div>
 
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $('#EnviarB').click(function (e) {
+            e.preventDefault(); // Evitar que el formulario se envíe directamente
+
+            var username = $('#usuarioLogin').val();
+            var password = $('#passwordLogin').val();
+
+            var errors = [];
+
+            if (username.trim() === '') errors.push('El campo nombre de usuario es obligatorio.');
+            if (username.length > 50) errors.push('El nombre de usuario debe tener como máximo 50 caracteres.');
+            if (password.trim() === '') errors.push('El campo contraseña es obligatorio.');
+
+            if (errors.length > 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errors[0], 
+                    confirmButtonText: 'Aceptar'
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '/Acceso/ValidarUser',
+                method: 'POST',
+                data: {
+                    usuario: username,
+                    clave: password
+                },
+                success: function (response) {
+                    if (response.success) {
+                        window.location.href = '/';
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Bienvenido otra!',
+                            text: 'Usted ha iniciado sesión correctamente',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message,
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Credenciales incorrectas',
+                        text: 'Usuario o contraseña incorrectos.',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
+        });
+
+    </script>
+}

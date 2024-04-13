@@ -14,8 +14,6 @@ function limpiarModalPanes() {
     document.getElementById("marcaTorta").value = "";
     document.getElementById("costoTorta").value = 0;
     document.getElementById("stockTorta").value = 0;
-    document.getElementById("fcTorta").value = "";
-    document.getElementById("fvTorta").value = "";
     document.getElementById("descTorta").value = "";
     document.getElementById("imgTorta").value = "";
 }
@@ -48,30 +46,6 @@ function cargarTablaTortas() {
                 "data": "costoT",
                 "render": function (data, type, row) {
                     return `<span style="font-size: 15px;">${data}</span>`;
-                }
-            },
-            {
-                "data": "fechaCreacionT",
-                "render": function (data, type, row) {
-                    if (data) {
-                        var date = new Date(data);
-                        var formattedDate = date.toLocaleDateString("es-ES");
-                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
-                    } else {
-                        return "";
-                    }
-                }
-            },
-            {
-                "data": "fechaVencimi",
-                "render": function (data, type, row) {
-                    if (data) {
-                        var date = new Date(data);
-                        var formattedDate = date.toLocaleDateString("es-ES");
-                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
-                    } else {
-                        return "";
-                    }
                 }
             },
             {

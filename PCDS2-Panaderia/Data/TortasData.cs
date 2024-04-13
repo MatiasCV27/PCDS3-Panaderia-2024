@@ -27,8 +27,6 @@ namespace PCDS2_Panaderia.Data
                             nombreT = dr["nombreT"].ToString(),
                             descripcionT = dr["descripcionT"].ToString(),
                             costoT = Convert.ToDecimal(dr["costoT"]),
-                            fechaCreacionT = Convert.ToDateTime(dr["fechaCreacionT"].ToString()),
-                            fechaVencimi = Convert.ToDateTime(dr["fechaVencimi"].ToString()),
                             stockT = Convert.ToInt32(dr["stockT"]),
                             imagenT = dr["imagenT"].ToString(),
                         });
@@ -57,8 +55,6 @@ namespace PCDS2_Panaderia.Data
                         oTortas.nombreT = dr["nombreT"].ToString();
                         oTortas.descripcionT = dr["descripcionT"].ToString();
                         oTortas.costoT = Convert.ToDecimal(dr["costoT"]);
-                        oTortas.fechaCreacionT = Convert.ToDateTime(dr["fechaCreacionT"].ToString());
-                        oTortas.fechaVencimi = Convert.ToDateTime(dr["fechaVencimi"].ToString());
                         oTortas.stockT = Convert.ToInt32(dr["stockT"]);
                         oTortas.imagenT = dr["imagenT"].ToString();
                     }
@@ -81,8 +77,6 @@ namespace PCDS2_Panaderia.Data
                     cmd.Parameters.AddWithValue("nombreT", oTorta.nombreT);
                     cmd.Parameters.AddWithValue("descripcionT", oTorta.descripcionT);
                     cmd.Parameters.AddWithValue("costoT", oTorta.costoT);
-                    cmd.Parameters.AddWithValue("fechaCreacionT", oTorta.fechaCreacionT);
-                    cmd.Parameters.AddWithValue("fechaVencimi", oTorta.fechaVencimi);
                     cmd.Parameters.AddWithValue("stockT", oTorta.stockT);
                     cmd.Parameters.AddWithValue("imagenT", oTorta.imagenT);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -114,8 +108,6 @@ namespace PCDS2_Panaderia.Data
                     cmd.Parameters.AddWithValue("nombreT", oTorta.nombreT);
                     cmd.Parameters.AddWithValue("descripcionT", oTorta.descripcionT);
                     cmd.Parameters.AddWithValue("costoT", oTorta.costoT);
-                    cmd.Parameters.AddWithValue("fechaCreacionT", oTorta.fechaCreacionT);
-                    cmd.Parameters.AddWithValue("fechaVencimi", oTorta.fechaVencimi);
                     cmd.Parameters.AddWithValue("stockT", oTorta.stockT);
                     cmd.Parameters.AddWithValue("imagenT", oTorta.imagenT);
                     cmd.CommandType = CommandType.StoredProcedure;

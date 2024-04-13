@@ -27,8 +27,6 @@ namespace PCDS2_Panaderia.Data
                             nombreB = dr["nombreB"].ToString(),
                             descripcionB = dr["descripcionB"].ToString(),
                             costoB = Convert.ToDecimal(dr["costoB"]),
-                            fechaCreacionB = Convert.ToDateTime(dr["fechaCreacionB"].ToString()),
-                            fechaVencimiB = Convert.ToDateTime(dr["fechaVencimiB"].ToString()),
                             stockB = Convert.ToInt32(dr["stockB"]),
                             imagenB = dr["imagenB"].ToString(),
                         });
@@ -57,8 +55,6 @@ namespace PCDS2_Panaderia.Data
                         oBocados.nombreB = dr["nombreB"].ToString();
                         oBocados.descripcionB = dr["descripcionB"].ToString();
                         oBocados.costoB = Convert.ToDecimal(dr["costoB"]);
-                        oBocados.fechaCreacionB = Convert.ToDateTime(dr["fechaCreacionB"].ToString());
-                        oBocados.fechaVencimiB = Convert.ToDateTime(dr["fechaVencimiB"].ToString());
                         oBocados.stockB = Convert.ToInt32(dr["stockB"]);
                         oBocados.imagenB = dr["imagenB"].ToString();
                     }
@@ -81,8 +77,6 @@ namespace PCDS2_Panaderia.Data
                     cmd.Parameters.AddWithValue("nombreB", oBoca.nombreB);
                     cmd.Parameters.AddWithValue("descripcionB", oBoca.descripcionB);
                     cmd.Parameters.AddWithValue("costoB", oBoca.costoB);
-                    cmd.Parameters.AddWithValue("fechaCreacionB", oBoca.fechaCreacionB);
-                    cmd.Parameters.AddWithValue("fechaVencimiB", oBoca.fechaVencimiB);
                     cmd.Parameters.AddWithValue("stockB", oBoca.stockB);
                     cmd.Parameters.AddWithValue("imagenB", oBoca.imagenB);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -114,8 +108,6 @@ namespace PCDS2_Panaderia.Data
                     cmd.Parameters.AddWithValue("nombreB", oBoca.nombreB);
                     cmd.Parameters.AddWithValue("descripcionB", oBoca.descripcionB);
                     cmd.Parameters.AddWithValue("costoB", oBoca.costoB);
-                    cmd.Parameters.AddWithValue("fechaCreacionB", oBoca.fechaCreacionB);
-                    cmd.Parameters.AddWithValue("fechaVencimiB", oBoca.fechaVencimiB);
                     cmd.Parameters.AddWithValue("stockB", oBoca.stockB);
                     cmd.Parameters.AddWithValue("imagenB", oBoca.imagenB);
                     cmd.CommandType = CommandType.StoredProcedure;

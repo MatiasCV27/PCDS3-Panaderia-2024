@@ -13,26 +13,25 @@
     <div class="col-lg-5 col-md-8 col-sm-10 mx-auto">
         <div class="login-box">
             <h4 class="text-white text-center" style="padding: .75em 0">Registro</h4>
-            <form asp-action="Registrarse" asp-controller="Acceso" method="post">
+            <form id="formRegistro" asp-action="Registrarse" asp-controller="Acceso" method="post">
                 <div class="user-box">
-                    <input type="text" asp-for="usuario" required="" />
+                    <input type="text" asp-for="usuario" id="username" />
                     <label>Nombre de Usuario:</label>
                 </div>
                 <div class="user-box">
-                    <input type="text" asp-for="correo" required="" />
+                    <input type="text" asp-for="correo" id="correo" />
                     <label>Correo Electrónico:</label>
                 </div>
                 <div class="user-box">
-                    <input type="text" asp-for="clave" class="m-0" required="" />
+                    <input type="text" asp-for="clave" class="m-0" id="password" />
                     <label>Contraseña:</label>
                 </div>
-                <div class="mb-3" style="display: none;>
+                <div class="mb-3" style="display: none;">
                     <label class="form-label">Roles</label>
                     <select asp-for="rol" class="form-control">
                         <option value="USER">Usuario</option>
                         <option value="ADMIN">Administrador</option>
                     </select>
-                    <span asp-validation-for="rol" class="text-danger"></span>
                 </div>
                 <center>
                     <button type="submit" class="text-dark border-0"><strong><i class="bi bi-cloud-download-fill"></i> Registrarse</strong></button>
@@ -42,3 +41,47 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('#formRegistro').submit(function (e) {
+                e.preventDefault();
+
+                var username = $('#username').val();
+                var password = $('#password').val();
+                var correo = $('#correo').val();
+
+                var errors = [];
+
+                if (username.trim() === '') errors.push('El campo nombre de usuario es obligatorio.');
+                if (username.length > 50) errors.push('El nombre de usuario debe tener como máximo 50 caracteres.');
+                if (password.trim() === '') errors.push('El campo contraseña es obligatorio.');
+                if (password.length < 6) errors.push('La contraseña debe tener como mínimo 6 caracteres.');
+                if (correo.trim() === '') errors.push('El campo correo es obligatorio.');
+                if (correo.length > 50) errors.push('El correo debe tener como máximo 50 caracteres.');
+
+                if (errors.length > 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: errors[0], // Muestra solo el primer error
+                        confirmButtonText: 'Aceptar'
+                    });
+                    return;
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Registro exitoso!',
+                    text: 'Usted se ha registrado correctamente!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                this.submit();
+            });
+        });
+    </script>
+}

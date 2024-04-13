@@ -21,6 +21,12 @@ namespace PCDS2_Panaderia.Controllers
         [HttpPost]
         public async Task<IActionResult> ValidarUser(UsuariosModel _usuario)
         {
+            if (string.IsNullOrEmpty(_usuario.usuario) || string.IsNullOrEmpty(_usuario.clave))
+            {
+                // Campos vacíos, devolver un mensaje de error
+                return Json(new { success = false, message = "Por favor, ingresa un usuario y una contraseña." });
+            }
+
             UsuariosData _usuarioData = new UsuariosData();
             var usuario = _usuarioData.ValidarUsuario(_usuario.usuario, _usuario.clave);
             if (usuario != null)
@@ -34,10 +40,11 @@ namespace PCDS2_Panaderia.Controllers
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                return RedirectToAction("Ver_Panes", "Panes");
-            } else
+                return Json(new { success = true });
+            }
+            else
             {
-                return View();
+                return Json(new { success = false, message = "Usuario o contraseña incorrectos." });
             }
         }
 

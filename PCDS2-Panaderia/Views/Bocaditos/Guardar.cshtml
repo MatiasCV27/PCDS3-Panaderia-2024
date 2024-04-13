@@ -23,8 +23,6 @@
                     <th class="text-center">Nombre</th>
                     <th class="text-center">Descripción</th>
                     <th class="text-center">Costo</th>
-                    <th class="text-center">Creación</th>
-                    <th class="text-center">Vencimiento</th>
                     <th class="text-center">Stock</th>
                     <th class="text-center">Imagen</th>
                     <th class="text-center"></th>
@@ -36,15 +34,15 @@
     <div class="modal fade" id="modalCrearBoca" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" enctype="multipart/form-data">
+                <form id="formBoca" method="post" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h2 class="modal-title text-center">Registrar Bocaditos</h2>
+                        <h2 class="modal-title text-center">Bocaditos</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div style="">
                             <div class="row border-0">
-                                <div asp-validation-summary="ModelOnly" class="text-denger"></div>
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             </div>
                             <input type="hidden" id="idBocaditos" asp-for="idBocaditos" />
                             <div class="row">
@@ -74,16 +72,6 @@
                                     <input asp-for="stockB" id="stockBoca" type="number" class="form-control" placeholder="50" />
                                     <span asp-validation-for="stockB" class="text-danger"></span>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Fecha de registro</label>
-                                    <input asp-for="fechaCreacionB" id="fcBoca" type="date" class="form-control" />
-                                    <span asp-validation-for="fechaCreacionB" class="text-danger"></span>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Fecha de vencimiento</label>
-                                    <input asp-for="fechaVencimiB" id="fvBoca" type="date" class="form-control" />
-                                    <span asp-validation-for="fechaVencimiB" class="text-danger"></span>
-                                </div>
                                 <div class="form-group col-md-12">
                                     <label>Descripción</label>
                                     <input asp-for="descripcionB" id="descBoca" class="form-control" placeholder="Es una opción clasica" />
@@ -99,7 +87,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Registrar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -110,4 +98,55 @@
 
 @section Scripts {
     <script src="~/js/mant-bocadito.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#modalCrearBoca').on('shown.bs.modal', function (e) {
+                $('.text-danger').html('');
+            });
+            $('#formBoca').submit(function (e) {
+                e.preventDefault();
+
+                var nombre = $('#nombreBoca').val();
+                var descripcion = $('#descBoca').val();
+                var imagen = $('#imgBoca').val();
+                var costo = $('#costBoca').val();
+                var stock = $('#stockBoca').val();
+
+                var errors = [];
+
+                if (nombre.trim() === '') errors.push('El campo nombre es obligatorio.');
+                if (nombre.length > 50) errors.push('El nombre del Bocadito debe tener como máximo 50 caracteres.');
+                if (descripcion.trim() === '') errors.push('El campo descripción es obligatorio.');
+                if (descripcion.length > 400) errors.push('La descripción del Bocadito debe tener como máximo 400 caracteres.');
+                if (imagen.trim() === '') errors.push('El campo imagen referencial es obligatorio.');
+                if (imagen.length > 400) errors.push('La imagen referencial del Bocadito debe tener como máximo 400 caracteres.');
+                if (parseInt(costo) <= 0) errors.push('El campo costo debe ser mayor que cero.');
+                if (parseInt(stock) <= 0) errors.push('El campo stock debe ser mayor que cero.');
+
+                $('.text-danger').html('');
+                if (errors.length > 0) {
+                    for (var i = 0; i < errors.length; i++) {
+                        if (errors[i].includes('nombre')) $('#nombreBoca').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('descripción')) $('#descBoca').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('imagen')) $('#imgBoca').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('costo')) $('#costBoca').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('stock')) $('#stockBoca').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                    }
+                    return;
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Guardado exitoso!',
+                    text: 'El bocadito se ha guardado correctamente.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                this.submit();
+            });
+        });
+    </script>
 }

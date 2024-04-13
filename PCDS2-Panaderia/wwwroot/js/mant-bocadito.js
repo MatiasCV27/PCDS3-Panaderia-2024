@@ -14,8 +14,6 @@ function limpiarModalPanes() {
     document.getElementById("marcanBoca").value = "";
     document.getElementById("costBoca").value = 0;
     document.getElementById("stockBoca").value = 0;
-    document.getElementById("fcBoca").value = "";
-    document.getElementById("fvBoca").value = "";
     document.getElementById("descBoca").value = "";
     document.getElementById("imgBoca").value = "";
 }
@@ -48,30 +46,6 @@ function cargarTablaPanes() {
                 "data": "costoB",
                 "render": function (data, type, row) {
                     return `<span style="font-size: 15px;">${data}</span>`;
-                }
-            },
-            {
-                "data": "fechaCreacionB",
-                "render": function (data, type, row) {
-                    if (data) {
-                        var date = new Date(data);
-                        var formattedDate = date.toLocaleDateString("es-ES");
-                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
-                    } else {
-                        return "";
-                    }
-                }
-            },
-            {
-                "data": "fechaVencimiB",
-                "render": function (data, type, row) {
-                    if (data) {
-                        var date = new Date(data);
-                        var formattedDate = date.toLocaleDateString("es-ES");
-                        return `<span style="font-size: 15px;">${formattedDate}</span>`;
-                    } else {
-                        return "";
-                    }
                 }
             },
             {
