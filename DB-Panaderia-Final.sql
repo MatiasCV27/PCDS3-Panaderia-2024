@@ -18,8 +18,8 @@ create table Panes (
     	nombreP 		Varchar(50) not null,
     	descripcionP 		Varchar(200) null,
     	costoP			decimal not null,
-    	fechaCreacionP 		Date,
-    	fechaVencimiP 		Date,
+    	fechaCreacionP 		Date null,
+    	fechaVencimiP 		Date null,
 	stockP			Int not null,
 	imagenP			Varchar(200),
     	constraint pk_Panes Primary key(idPanes)
@@ -99,8 +99,8 @@ create table Bocaditos (
     nombreB 		Varchar(50) not null,
     descripcionB 	Varchar(200) null,
     costoB			decimal not null,
-    fechaCreacionB 	Date,
-    fechaVencimiB 	Date,
+    fechaCreacionB 	Date null,
+    fechaVencimiB 	Date null,
 	stockB			Int not null,
 	imagenB			Varchar(200),
     constraint pk_Bocad Primary key(idBocaditos)
@@ -177,8 +177,8 @@ create table Tortas (
     nombreT			Varchar(50) not null,
     descripcionT 	Varchar(200) null,
     costoT			decimal not null,
-    fechaCreacionT 	Date,
-    fechaVencimi 	Date,
+    fechaCreacionT 	Date null,
+    fechaVencimi 	Date null,
 	stockT			Int not null,
 	imagenT			Varchar(200),
     constraint pk_Tortas Primary key(idTortas)
@@ -346,26 +346,26 @@ End
 go
 	
 --- Agregar Panes
-INSERT INTO Panes (marcaP, nombreP, descripcionP, costoP, fechaCreacionP, fechaVencimiP, stockP, imagenP)
-VALUES ('Artesanal', 'Pan Chiabata', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/Pan-Baguette-300x300.png'),
-('Artesanal', 'Pan Baguet', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/CIABATTA_BLANCO-1-300x300.jpg'),
-('Artesanal', 'Pan Integral', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/YEMA_PAN-1-300x300.jpg'),
-('Artesanal', 'Pan Yema', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/CHANCAY_GRANDE-1-300x300.jpg'),
-('Artesanal', 'Pan Model', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/MOLDE_BLANCO-1-300x300.jpg');
+INSERT INTO Panes (marcaP, nombreP, descripcionP, costoP, stockP, imagenP)
+VALUES ('Artesanal', 'Pan Chiabata', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/Pan-Baguette-300x300.png'),
+('Artesanal', 'Pan Baguet', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/CIABATTA_BLANCO-1-300x300.jpg'),
+('Artesanal', 'Pan Integral', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/YEMA_PAN-1-300x300.jpg'),
+('Artesanal', 'Pan Yema', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/CHANCAY_GRANDE-1-300x300.jpg'),
+('Artesanal', 'Pan Model', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/MOLDE_BLANCO-1-300x300.jpg');
 
 --- Agregar Bocaditos
-INSERT INTO Bocaditos (marcaB, nombreB, descripcionB, costoB, fechaCreacionB, fechaVencimiB, stockB, imagenB)
-VALUES ('Artesanal', 'Milohojas', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/MILHOJAS_GRANDE-1-300x300.jpg'),
-('Artesanal', 'Zambito', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/ZAMBITO_CHOCOLATE-1-300x300.jpg'),
-('Artesanal', 'Alfajor', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/A749713-300x300.png'),
-('Artesanal', 'Prueba', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/A7407797-300x300.png'),
-('Artesanal', '7 Sabores', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/SIETE_SABORES-1-300x300.jpg');
+INSERT INTO Bocaditos (marcaB, nombreB, descripcionB, costoB, stockB, imagenB)
+VALUES ('Artesanal', 'Milohojas', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/MILHOJAS_GRANDE-1-300x300.jpg'),
+('Artesanal', 'Zambito', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/ZAMBITO_CHOCOLATE-1-300x300.jpg'),
+('Artesanal', 'Alfajor', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/A749713-300x300.png'),
+('Artesanal', 'Prueba', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/A7407797-300x300.png'),
+('Artesanal', '7 Sabores', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/SIETE_SABORES-1-300x300.jpg');
 
 --- Agregar Panaderia
-INSERT INTO Tortas (marcaB, nombreT, descripcionT, costoT, fechaCreacionT, fechaVencimi, stockT, imagenT)
-VALUES ('Artesanal', 'Pastel de fresas', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/Mini-Torta-clasica-de-fresas-300x300.png'),
-('Artesanal', 'Pastel de Zanahorias', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/Mini-Torta-de-Zanahoria-300x300.png'),
-('Artesanal', 'Pastel Merengue', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/Mini-torta-merengado-de-chirimoya-300x300.png'),
-('Artesanal', 'Pastel Tres Leches', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/Torta_Tres_Leches-300x300.png'),
-('Artesanal', 'Pastel Arcoiris', 'Pan elaborado con granos enteros', 2.50, '2024-03-14', '2024-04-13', 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/arcoiris_toppers_novedades-300x300.png');
+INSERT INTO Tortas (marcaB, nombreT, descripcionT, costoT, stockT, imagenT)
+VALUES ('Artesanal', 'Pastel de fresas', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/Mini-Torta-clasica-de-fresas-300x300.png'),
+('Artesanal', 'Pastel de Zanahorias', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/Mini-Torta-de-Zanahoria-300x300.png'),
+('Artesanal', 'Pastel Merengue', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2023/10/Mini-torta-merengado-de-chirimoya-300x300.png'),
+('Artesanal', 'Pastel Tres Leches', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/Torta_Tres_Leches-300x300.png'),
+('Artesanal', 'Pastel Arcoiris', 'Pan elaborado con granos enteros', 2.50, 10, 'https://pasteleriasanantonio.com/programados/wp-content/uploads/2022/12/arcoiris_toppers_novedades-300x300.png');
 
