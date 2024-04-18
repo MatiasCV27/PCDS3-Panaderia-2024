@@ -11,69 +11,59 @@ namespace PCDS2_Panaderia.Controllers
         UsuariosData _userData = new UsuariosData();
 
         [Authorize(Roles = "ADMIN")]
+        public IActionResult Guardar(int id)
+        {
+            UsuariosModel user = new UsuariosModel();
+            if (id == null)
+            {
+                return View(user);
+            }
+            else
+            {
+                user = _userData.ObtenerUsuarios(id);
+                return View(user);
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult ListarUser()
         {
-            // La vista mostrara una Lista de Personas
             var oLista = _userData.ListaUsuarios();
-            return View(oLista);
+            return Json(new { data = oLista });
         }
-        [Authorize(Roles = "ADMIN")]
-        public IActionResult Guardar()
-        {
-            // Metodo solo vuelve a la Vista
-            return View();
-        }
-        [Authorize(Roles = "ADMIN")]
+
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Guardar(UsuariosModel oUser)
         {
-            // Metodo recibe el objeto para guardarlo en BD
             if (!ModelState.IsValid)
                 return View();
 
-            var respuesta = _userData.GuardarUsuarios(oUser);
-
-            if (respuesta)
-                return RedirectToAction("ListarUser");
+            if (oUser.idUsuario == 0) // Crea el registro
+            {
+                _userData.GuardarUsuarios(oUser);
+                return RedirectToAction(nameof(Guardar));
+            }
             else
-                return View();
+            {
+                _userData.EditarUsuarios(oUser);
+                return RedirectToAction(nameof(Guardar), new { id = 0 });
+            }
+            return View();
         }
-        [Authorize(Roles = "ADMIN")]
-        public IActionResult Editar(int idUsuario)
-        {
-            var oUser = _userData.ObtenerUsuarios(idUsuario);
-            return View(oUser);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Editar(UsuariosModel oUser)
-        {
-            if (!ModelState.IsValid)
-                return View();
 
-            var respuesta = _userData.EditarUsuarios(oUser);
-
-            if (respuesta)
-                return RedirectToAction("ListarUser");
-            else
-                return View();
-        }
+        [HttpDelete]
         [Authorize(Roles = "ADMIN")]
         public IActionResult Eliminar(int idUsuario)
         {
             var oUser = _userData.ObtenerUsuarios(idUsuario);
-            return View(oUser);
-        }
-        [Authorize(Roles = "ADMIN")]
-        [HttpPost]
-        public IActionResult Eliminar(UsuariosModel oUser)
-        {
-            var respuesta = _userData.EliminarUsuarios(oUser.idUsuario);
-
-            if (respuesta)
-                return RedirectToAction("ListarUser");
-            else
-                return View();
+            if (oUser == null)
+            {
+                return Json(new { Success = false, message = "Error al borrar el pan" });
+            }
+            _userData.EliminarUsuarios(oUser.idUsuario);
+            return Json(new { Success = true, message = "Pan eliminado exitosamente" });
         }
 
         // Ver Compras

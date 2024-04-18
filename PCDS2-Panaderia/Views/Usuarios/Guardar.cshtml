@@ -4,47 +4,142 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="imgEditarUser">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <div class="card" style="border: 1px solid white">
-                    <div class="card-header bg-dark text-white">
-                        <h2 class="text-center"><strong>Añadir un Nuevo Usuario</strong></h2>
+<div style="margin-left: 5%; width: 90%;" class="mb-4">
+
+    <div class="row p-2 justify-content-between" , style="width: 100%;">
+        <div class="col-6">
+            <h2>Lista de Usuarios</h2>
+        </div>
+        <div class="col-2 text-right" style="padding: 0;">
+            <button type="button" onclick="limpiarModaUser()" class="btn btn-dark form-control" data-bs-toggle="modal" data-bs-target="#modalCrearUsuarios"><b><i class="bi bi-plus-circle"></i> Registrar</b></button>
+        </div>
+    </div>
+
+    <div class="border rounded bg-light p-2">
+        <table id="TablaUser" class="table table-bordered table-responsive-xl" style="width: 100%; overflow: hidden; background-image: url('../../wwwroot/img/fondoMantenimientoPan.png') !important;">
+            <thead class="thead-dark">
+                <tr class="table-dark">
+                    <th class="text-center">Usuario</th>
+                    <th class="text-center">Correo</th>
+                    <th class="text-center">Rol</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="modal fade" id="modalCrearUsuarios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formUser" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center">Usuarios</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="card-body bg-dark text-white">
-                        <form asp-action="Guardar" asp-controller="Usuarios" method="post">
-                            <div class="mb-3">
-                                <label class="form-label">Nombre de Usuario</label>
-                                <input asp-for="usuario" type="text" class="form-control">
-                                <span asp-validation-for="usuario" class="text-danger"></span>
+                    <div class="modal-body">
+                        <div style="">
+                            <div class="row border-0">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Correo Electronico</label>
-                                <input asp-for="correo" type="text" class="form-control">
-                                <span asp-validation-for="correo" class="text-danger"></span>
+                            <input id="idUsuario" asp-for="idUsuario" type="hidden" class="form-control">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre de Usuario</label>
+                                    <input asp-for="usuario" id="nombreUser" type="text" class="form-control">
+                                    <span asp-validation-for="usuario" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Correo Electronico</label>
+                                    <input asp-for="correo" id="correoUser" type="text" class="form-control">
+                                    <span asp-validation-for="correo" class="text-danger"></span>
+                                </div>
+                                @if (Model.idUsuario == 0)
+                                {
+                                    <div class="mb-3">
+                                        <label class="form-label">Contraseña</label>
+                                        <input asp-for="clave" id="passwordUser" type="password" class="form-control">
+                                        <span asp-validation-for="clave" class="text-danger"></span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="mb-3">
+                                        <input asp-for="clave" id="passwordUser" type="hidden" class="form-control">
+                                        <span asp-validation-for="clave" class="text-danger"></span>
+                                    </div>
+                                }
+                                <div class="mb-3">
+                                    <label class="form-label">Roles</label>
+                                    <select asp-for="rol" class="form-control">
+                                        <option value="USER">Usuario</option>
+                                        <option value="ADMIN">Administrador</option>
+                                    </select>
+                                    <span asp-validation-for="rol" class="text-danger"></span>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Contraseña</label>
-                                <input asp-for="clave" type="text" class="form-control">
-                                <span asp-validation-for="clave" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3" >
-                                <label class="form-label">Roles</label>
-                                <select asp-for="rol" class="form-control">
-                                    <option value="USER">Usuario</option>
-                                    <option value="ADMIN">Administrador</option>
-                                </select>
-                                <span asp-validation-for="rol" class="text-danger"></span>
-                            </div>
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> Guardar</button>
-                            <a asp-action="ListarUser" asp-controller="Usuarios" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Volver a la lista</a>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
+@section Scripts {
+
+    <script src="~/js/mant-usuarios.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <!--<script>
+        $(document).ready(function () {
+            $('#modalCrearUsuarios').on('shown.bs.modal', function (e) {
+                $('.text-danger').html('');
+            });
+            $('#formUser').submit(function (e) {
+                e.preventDefault();
+
+                var nombre = $('#nombreUser').val();
+                var correo = $('#correoUser').val();
+                var password = $('#passwordUser').val();
+
+                var errors = [];
+
+                if (nombre.trim() === '') errors.push('El campo nombre de usuario es obligatorio.');
+                if (nombre.length > 50) errors.push('El nombre del Pan debe tener como máximo 50 caracteres.');
+                if (descripcion.trim() === '') errors.push('El campo descripción es obligatorio.');
+                if (descripcion.length > 400) errors.push('La descripción del Pan debe tener como máximo 400 caracteres.');
+                if (imagen.trim() === '') errors.push('El campo imagen referencial es obligatorio.');
+                if (imagen.length > 400) errors.push('La imagen referencial del Pan debe tener como máximo 400 caracteres.');
+                if (parseInt(costo) <= 0) errors.push('El campo costo debe ser mayor que cero.');
+                if (parseInt(stock) <= 0) errors.push('El campo stock debe ser mayor que cero.');
+
+                $('.text-danger').html('');
+                if (errors.length > 0) {
+                    for (var i = 0; i < errors.length; i++) {
+                        if (errors[i].includes('nombre')) $('#nombrePan').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('descripción')) $('#descPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('imagen')) $('#imgPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('costo')) $('#costPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('stock')) $('#stockPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                    }
+                    return;
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Guardado exitoso!',
+                    text: 'El pan se ha guardado correctamente.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                this.submit();
+            });
+        });
+    </script>-->
+}
 
