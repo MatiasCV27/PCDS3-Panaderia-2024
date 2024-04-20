@@ -42,7 +42,7 @@
                         else {
                             <h2 class="modal-title text-center">Actualizar @Model.nombreT</h2>
                         }
-                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <a href="/Tortas/Guardar" class="btn-close bg-light" aria-label="Close"></a>
                     </div>
                     <div class="modal-body">
                         <div style="">
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cerrar</button>
+                        <a href="/Tortas/Guardar" class="btn btn-outline-primary">Cerrar</a>
                         @if (Model.idTortas == 0) {
                             <button type="submit" class="btn btn-outline-success">Registrar</button>
                         } else {
