@@ -34,7 +34,7 @@
         </div>
         <div class="carrito-total">
             <div class="fila">
-                <strong>Tu Total</strong>
+                <strong>Total en S/</strong>
                 <span class="carrito-precio-total">
                     $120.000,00
                 </span>
@@ -66,7 +66,7 @@
                 var elementos = document.getElementsByClassName('carrito-item-titulo');
                 var listadoDeCompras = "";
                 for (var i = 0; i < elementos.length; i++) {
-                    listadoDeCompras += elementos[i].innerText + " x " + document.getElementsByClassName('carrito-item-cantidad')[i].value + "\n";
+                    listadoDeCompras += elementos[i].innerText + " \t " + document.getElementsByClassName('carrito-item-cantidad')[i].value + "\n";
                     if (i < elementos.length - 1) {
                         listadoDeCompras += "";
                     }
@@ -74,10 +74,11 @@
                 // Obtener el total:
                 var totalTexto = document.getElementsByClassName('carrito-precio-total')[0].innerText;
                 var totalNumerico = totalTexto.replace('S/.', '').replace(',00', '');
+                var totalDividido = totalNumerico / 3.60;
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: parseInt(totalNumerico),
+                            value: totalDividido.toFixed(2),
                         },
                         description: listadoDeCompras
                     }]
@@ -111,12 +112,12 @@
                         }),
                         success: function (response) {
                             console.log('Factura guardada exitosamente:', response);
+                            window.location.reload();
                         },
                         error: function (xhr, status, error) {
                             console.error('Error al guardar la factura:', error);
                         }
                     });
-                    pagarClicked();
                     console.log(detalles);
                 });
             },

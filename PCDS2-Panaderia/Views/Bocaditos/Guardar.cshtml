@@ -35,9 +35,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id="formBoca" method="post" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h2 class="modal-title text-center">Bocaditos</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header bg-dark text-white">
+                        @if (Model.idBocaditos == 0) {
+                            <h2 class="modal-title text-center">Registrar Bocaditos</h2>
+                        } else {
+                            <h2 class="modal-title text-center">Actualizar @Model.nombreB</h2>
+                        }
+                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div style="">
@@ -86,8 +90,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cerrar</button>
+                        @if (Model.idBocaditos == 0) {
+                            <button type="submit" class="btn btn-outline-success">Registrar</button>
+                        } else {
+                            <button type="submit" class="btn btn-outline-success">Actualizar</button>
+                        }
                     </div>
                 </form>
             </div>

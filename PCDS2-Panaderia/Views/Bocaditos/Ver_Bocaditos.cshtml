@@ -73,10 +73,11 @@
                 // Obtener el total:
                 var totalTexto = document.getElementsByClassName('carrito-precio-total')[0].innerText;
                 var totalNumerico = totalTexto.replace('S/.', '').replace(',00', '');
+                var totalDividido = totalNumerico / 3.60;
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: parseInt(totalNumerico),
+                            value: totalDividido.toFixed(2),
                         },
                         description: listadoDeCompras
                     }]

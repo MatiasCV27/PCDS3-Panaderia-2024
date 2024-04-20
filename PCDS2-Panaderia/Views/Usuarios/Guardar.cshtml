@@ -32,9 +32,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id="formUser" method="post" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h2 class="modal-title text-center">Usuarios</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header bg-dark text-white">
+                        @if (Model.idUsuario == 0) {
+                            <h2 class="modal-title text-center">Registrar Usuarios</h2>
+                        } else {
+                            <h2 class="modal-title text-center">Actualizar @Model.usuario</h2>
+                        }
+                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div style="">
@@ -53,16 +57,13 @@
                                     <input asp-for="correo" id="correoUser" type="text" class="form-control">
                                     <span asp-validation-for="correo" class="text-danger"></span>
                                 </div>
-                                @if (Model.idUsuario == 0)
-                                {
+                                @if (Model.idUsuario == 0) {
                                     <div class="mb-3">
                                         <label class="form-label">Contraseña</label>
                                         <input asp-for="clave" id="passwordUser" type="password" class="form-control">
                                         <span asp-validation-for="clave" class="text-danger"></span>
                                     </div>
-                                }
-                                else
-                                {
+                                } else {
                                     <div class="mb-3">
                                         <input asp-for="clave" id="passwordUser" type="hidden" class="form-control">
                                         <span asp-validation-for="clave" class="text-danger"></span>
@@ -80,8 +81,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cerrar</button>
+                        @if (Model.idUsuario == 0) {
+                            <button type="submit" class="btn btn-outline-success">Registrar</button>
+                        } else {
+                            <button type="submit" class="btn btn-outline-success">Actualizar</button>
+                        }
                     </div>
                 </form>
             </div>
@@ -94,7 +99,7 @@
     <script src="~/js/mant-usuarios.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <!--<script>
+    <script>
         $(document).ready(function () {
             $('#modalCrearUsuarios').on('shown.bs.modal', function (e) {
                 $('.text-danger').html('');
@@ -108,31 +113,26 @@
 
                 var errors = [];
 
-                if (nombre.trim() === '') errors.push('El campo nombre de usuario es obligatorio.');
-                if (nombre.length > 50) errors.push('El nombre del Pan debe tener como máximo 50 caracteres.');
-                if (descripcion.trim() === '') errors.push('El campo descripción es obligatorio.');
-                if (descripcion.length > 400) errors.push('La descripción del Pan debe tener como máximo 400 caracteres.');
-                if (imagen.trim() === '') errors.push('El campo imagen referencial es obligatorio.');
-                if (imagen.length > 400) errors.push('La imagen referencial del Pan debe tener como máximo 400 caracteres.');
-                if (parseInt(costo) <= 0) errors.push('El campo costo debe ser mayor que cero.');
-                if (parseInt(stock) <= 0) errors.push('El campo stock debe ser mayor que cero.');
+                if (username.trim() === '') errors.push('El campo nombre de usuario es obligatorio.');
+                if (username.length > 50) errors.push('El nombre de usuario debe tener como máximo 50 caracteres.');
+                if (password.trim() === '') errors.push('El campo contraseña es obligatorio.');
+                if (password.length < 6) errors.push('La contraseña debe tener como mínimo 6 caracteres.');
+                if (correo.trim() === '') errors.push('El campo correo es obligatorio.');
+                if (correo.length > 50) errors.push('El correo debe tener como máximo 50 caracteres.');
 
                 $('.text-danger').html('');
                 if (errors.length > 0) {
                     for (var i = 0; i < errors.length; i++) {
-                        if (errors[i].includes('nombre')) $('#nombrePan').next('.text-danger').append('<div>' + errors[i] + '</div>');
-                        else if (errors[i].includes('descripción')) $('#descPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
-                        else if (errors[i].includes('imagen')) $('#imgPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
-                        else if (errors[i].includes('costo')) $('#costPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
-                        else if (errors[i].includes('stock')) $('#stockPan').next('.text-danger').append('<div>' + errors[i] + '</div>');
-                    }
+                        if (errors[i].includes('nombre')) $('#nombreUser').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('correo')) $('#correoUser').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                        else if (errors[i].includes('password')) $('#passwordUser').next('.text-danger').append('<div>' + errors[i] + '</div>');
                     return;
                 }
 
                 Swal.fire({
                     icon: 'success',
                     title: '¡Guardado exitoso!',
-                    text: 'El pan se ha guardado correctamente.',
+                    text: 'El usuario se ha guardado correctamente.',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -140,6 +140,6 @@
                 this.submit();
             });
         });
-    </script>-->
+    </script>
 }
 
