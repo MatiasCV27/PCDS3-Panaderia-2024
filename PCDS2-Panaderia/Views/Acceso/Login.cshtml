@@ -52,6 +52,8 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
+                    background: '#212529',
+                    color: '#FFFFFF',
                     text: errors[0], 
                     confirmButtonText: 'Aceptar'
                 });
@@ -72,6 +74,8 @@
                             icon: 'success',
                             title: 'Bienvenido otra!',
                             text: 'Usted ha iniciado sesión correctamente',
+                            background: '#212529',
+                            color: '#FFFFFF',
                             confirmButtonText: 'Aceptar'
                         });
                     } else {
@@ -79,6 +83,8 @@
                             icon: 'error',
                             title: 'Error',
                             text: response.message,
+                            background: '#212529',
+                            color: '#FFFFFF',
                             confirmButtonText: 'Aceptar'
                         });
                     }
@@ -88,6 +94,8 @@
                         icon: 'error',
                         title: 'Credenciales incorrectas',
                         text: 'Usuario o contraseña incorrectos.',
+                        background: '#212529',
+                        color: '#FFFFFF',
                         confirmButtonText: 'Aceptar'
                     });
                 }

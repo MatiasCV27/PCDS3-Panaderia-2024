@@ -113,19 +113,21 @@
 
                 var errors = [];
 
-                if (username.trim() === '') errors.push('El campo nombre de usuario es obligatorio.');
-                if (username.length > 50) errors.push('El nombre de usuario debe tener como máximo 50 caracteres.');
+                if (nombre.trim() === '') errors.push('El campo nombre de usuario es obligatorio.');
+                if (nombre.length > 50) errors.push('El nombre de usuario debe tener como máximo 50 caracteres.');
                 if (password.trim() === '') errors.push('El campo contraseña es obligatorio.');
                 if (password.length < 6) errors.push('La contraseña debe tener como mínimo 6 caracteres.');
                 if (correo.trim() === '') errors.push('El campo correo es obligatorio.');
                 if (correo.length > 50) errors.push('El correo debe tener como máximo 50 caracteres.');
 
-                $('.text-danger').html('');
+                $('.text-danger').html(''); // Limpiar mensajes de error antes de mostrar nuevos
+
                 if (errors.length > 0) {
                     for (var i = 0; i < errors.length; i++) {
                         if (errors[i].includes('nombre')) $('#nombreUser').next('.text-danger').append('<div>' + errors[i] + '</div>');
                         else if (errors[i].includes('correo')) $('#correoUser').next('.text-danger').append('<div>' + errors[i] + '</div>');
                         else if (errors[i].includes('password')) $('#passwordUser').next('.text-danger').append('<div>' + errors[i] + '</div>');
+                    }
                     return;
                 }
 
@@ -133,6 +135,8 @@
                     icon: 'success',
                     title: '¡Guardado exitoso!',
                     text: 'El usuario se ha guardado correctamente.',
+                    background: '#212529',
+                    color: '#FFFFFF',
                     showConfirmButton: false,
                     timer: 1500
                 });

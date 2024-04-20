@@ -111,10 +111,27 @@
                             fecha: fechaFormateada
                         }),
                         success: function (response) {
-                            console.log('Factura guardada exitosamente:', response);
-                            window.location.reload();
+                            // Mostrar SweetAlert2 en caso de éxito
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Compra realizada!',
+                                text: 'Factura guardada exitosamente.',
+                                background: '#212529',
+                                color: '#FFFFFF',
+                                confirmButtonText: 'Ok'
+                            }).then(function () {
+                                window.location.href = '/Panes/Ver_Panes';
+                            });
                         },
                         error: function (xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Error al guardar la factura. Por favor, intenta de nuevo más tarde.',
+                                background: '#212529',
+                                color: '#FFFFFF', 
+                                confirmButtonText: 'Ok'
+                            });
                             console.error('Error al guardar la factura:', error);
                         }
                     });
@@ -122,7 +139,14 @@
                 });
             },
             onCancel(data) {
-                alert("Pago Cancelado");
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Compra cancelada',
+                    text: 'Usted acaba de cancelar su compra',
+                    background: '#212529',
+                    color: '#FFFFFF',
+                    confirmButtonText: 'Ok'
+                });
                 console.log(data);
             }
         }).render('#paypal-button-panes');
